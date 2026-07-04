@@ -25,6 +25,13 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#f9f7f3" />
+    <script is:inline>
+      // Aplica el tema guardado antes del primer paint (sin flash)
+      try {
+        var t = localStorage.getItem("theme");
+        if (t) document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <title>{title}</title>
   </head>
   <body class="bg-cream text-body-text font-body antialiased">

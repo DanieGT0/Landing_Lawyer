@@ -21,6 +21,7 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--color-cream);
+  transition: background-color 0.5s ease;
 }
 
 body {
@@ -28,6 +29,88 @@ body {
   color: var(--color-body-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.5s ease, color 0.35s ease;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TEMAS DE COLOR — el cliente elige en vivo con el selector.
+   Cada tema solo redefine estas 8 variables. Para editar la paleta
+   base: cambia los valores del bloque @theme de arriba (tema "bronce").
+   Roles: cream=fondo · surface=tarjetas · header=títulos/texto fuerte
+          body-text=párrafos · theme=acento · theme-deep=acento oscuro
+          line/line-2=bordes
+   ══════════════════════════════════════════════════════════════ */
+
+/* 2 · Azul marino (claro) */
+[data-theme="navy"] {
+  --color-cream: #f4f6fa;  --color-surface: #ffffff;
+  --color-header: #0f2a4a; --color-body-text: #4a5568;
+  --color-theme: #1e4e8c; --color-theme-deep: #163a66;
+  --color-line: #dbe3ee;  --color-line-2: #b3c2d6;
+}
+
+/* 3 · Azul oscuro + blanco (oscuro) */
+[data-theme="midnight"] {
+  --color-cream: #0c1a2e;  --color-surface: #12253f;
+  --color-header: #ffffff; --color-body-text: #aebfd4;
+  --color-theme: #e2b770; --color-theme-deep: #c8a15a;
+  --color-line: rgba(255,255,255,0.10); --color-line-2: rgba(255,255,255,0.22);
+}
+
+/* 4 · Verde bosque (claro) */
+[data-theme="forest"] {
+  --color-cream: #f4f7f4;  --color-surface: #ffffff;
+  --color-header: #14261c; --color-body-text: #4b5a50;
+  --color-theme: #2e6b4f; --color-theme-deep: #1f4e39;
+  --color-line: #dde7e0;  --color-line-2: #b8c9be;
+}
+
+/* 5 · Borgoña (claro) */
+[data-theme="burgundy"] {
+  --color-cream: #faf6f5;  --color-surface: #ffffff;
+  --color-header: #24151a; --color-body-text: #5a4a4e;
+  --color-theme: #7a2233; --color-theme-deep: #5e1826;
+  --color-line: #ecdfe0;  --color-line-2: #cdb6ba;
+}
+
+/* 6 · Grafito (claro, minimal) */
+[data-theme="graphite"] {
+  --color-cream: #f5f5f4;  --color-surface: #ffffff;
+  --color-header: #1c1c1c; --color-body-text: #575757;
+  --color-theme: #52525b; --color-theme-deep: #27272a;
+  --color-line: #e4e4e2;  --color-line-2: #c4c4c2;
+}
+
+/* 7 · Esmeralda (claro) */
+[data-theme="emerald"] {
+  --color-cream: #f2f7f5;  --color-surface: #ffffff;
+  --color-header: #0f241e; --color-body-text: #47605a;
+  --color-theme: #0e8a6a; --color-theme-deep: #0a6b52;
+  --color-line: #d7e8e2;  --color-line-2: #b0ccc3;
+}
+
+/* 8 · Terracota (claro) */
+[data-theme="terracotta"] {
+  --color-cream: #fbf6f1;  --color-surface: #ffffff;
+  --color-header: #2a1c14; --color-body-text: #5c4a3e;
+  --color-theme: #c05f3c; --color-theme-deep: #9c4a2c;
+  --color-line: #ecdfd4;  --color-line-2: #d6bda9;
+}
+
+/* 9 · Oro noche (oscuro) */
+[data-theme="onyx"] {
+  --color-cream: #0e0e0f;  --color-surface: #1a1a1c;
+  --color-header: #f5f1e8; --color-body-text: #b5b0a6;
+  --color-theme: #c8a15a; --color-theme-deep: #e3c489;
+  --color-line: rgba(245,241,232,0.10); --color-line-2: rgba(245,241,232,0.22);
+}
+
+/* 10 · Índigo (claro, corporativo) */
+[data-theme="indigo"] {
+  --color-cream: #f5f5fb;  --color-surface: #ffffff;
+  --color-header: #1a1b3a; --color-body-text: #4c4e6b;
+  --color-theme: #4f46e5; --color-theme-deep: #3730a3;
+  --color-line: #e0e0ef;  --color-line-2: #bfbfd6;
 }
 
 .font-display {

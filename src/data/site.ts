@@ -174,6 +174,21 @@ export const faqs = [
   },
 ];
 
+// Temas para el selector de paleta (demo para que el cliente elija).
+// id debe coincidir con [data-theme="id"] en global.css. "" = tema por defecto (bronce).
+export const temas = [
+  { id: "", nombre: "Bronce", bg: "#f9f7f3", accent: "#b68c5a", ink: "#181818", oscuro: false },
+  { id: "navy", nombre: "Azul marino", bg: "#f4f6fa", accent: "#1e4e8c", ink: "#0f2a4a", oscuro: false },
+  { id: "midnight", nombre: "Azul noche", bg: "#0c1a2e", accent: "#e2b770", ink: "#ffffff", oscuro: true },
+  { id: "forest", nombre: "Verde bosque", bg: "#f4f7f4", accent: "#2e6b4f", ink: "#14261c", oscuro: false },
+  { id: "burgundy", nombre: "Borgoña", bg: "#faf6f5", accent: "#7a2233", ink: "#24151a", oscuro: false },
+  { id: "graphite", nombre: "Grafito", bg: "#f5f5f4", accent: "#52525b", ink: "#1c1c1c", oscuro: false },
+  { id: "emerald", nombre: "Esmeralda", bg: "#f2f7f5", accent: "#0e8a6a", ink: "#0f241e", oscuro: false },
+  { id: "terracotta", nombre: "Terracota", bg: "#fbf6f1", accent: "#c05f3c", ink: "#2a1c14", oscuro: false },
+  { id: "onyx", nombre: "Oro noche", bg: "#0e0e0f", accent: "#c8a15a", ink: "#f5f1e8", oscuro: true },
+  { id: "indigo", nombre: "Índigo", bg: "#f5f5fb", accent: "#4f46e5", ink: "#1a1b3a", oscuro: false },
+];
+
 export const navLinks = [
   { href: "#areas", label: "Áreas" },
   { href: "#proceso", label: "Proceso" },

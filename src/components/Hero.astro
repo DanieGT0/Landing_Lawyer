@@ -22,10 +22,10 @@ import Icon from "./Icon.astro";
     <source src="/hero.mp4" type="video/mp4" />
   </video>
 
-  <!-- Overlay: crema denso a la izquierda (texto legible) → transparente a la derecha (video visible) -->
-  <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-cream via-cream/85 to-cream/25"></div>
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-cream to-transparent"></div>
-  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-cream to-transparent"></div>
+  <!-- Overlay: crema a la izquierda (texto legible) → casi transparente a la derecha (video más claro) -->
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-cream via-cream/70 to-transparent"></div>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cream to-transparent"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-cream/80 to-transparent"></div>
 
   <div class="relative mx-auto w-full max-w-7xl px-6 md:px-8">
     <div class="max-w-2xl">
@@ -52,17 +52,13 @@ import Icon from "./Icon.astro";
           <Icon name="whatsapp" class="h-4 w-4" />
           Escribir por WhatsApp
         </a>
-        <button
-          data-lightbox
-          data-src="/intro.mp4"
-          class="group inline-flex items-center gap-3 text-sm font-medium text-header transition-colors hover:text-theme"
+        <a
+          href="#contacto"
+          class="inline-flex items-center gap-2 rounded-full border border-line-2 bg-cream/60 px-6 py-3.5 text-sm font-medium text-header backdrop-blur transition-colors hover:border-theme hover:text-theme"
         >
-          <span class="relative flex h-12 w-12 items-center justify-center rounded-full border border-theme bg-cream/70 text-theme backdrop-blur">
-            <span class="absolute inset-0 rounded-full bg-theme/20 animate-ping"></span>
-            <svg viewBox="0 0 24 24" class="relative h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          Ver intro
-        </button>
+          Enviar consulta
+          <Icon name="arrow" class="h-4 w-4" />
+        </a>
       </div>
 
       <dl class="reveal mt-12 flex flex-wrap gap-x-10 gap-y-6 border-t border-line/80 pt-8" data-reveal>
