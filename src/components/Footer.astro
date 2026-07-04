@@ -1,12 +1,65 @@
 ---
+import { firma, areas, navLinks, whatsappLink } from "../data/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-line/60 bg-paper py-10">
-  <div
-    class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-xs uppercase tracking-wide text-ink-soft/60 md:flex-row md:px-10"
-  >
-    <span>© {year} Alonso &amp; Vega Abogados</span>
-    <span>San Salvador, El Salvador</span>
+<footer class="border-t border-line bg-ink pt-20 pb-10">
+  <div class="mx-auto max-w-7xl px-6 md:px-8">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <a href="#inicio" class="font-display text-2xl tracking-tight text-bone">
+          {firma.nombre}<span class="text-gold">.</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm text-bone-dim">
+          {firma.nombreLargo}. Asesoría y litigio en El Salvador con criterio
+          técnico y trato directo.
+        </p>
+        <a
+          href={whatsappLink()}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-6 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
+        >
+          Consulta gratis
+        </a>
+      </div>
+
+      <div>
+        <h3 class="mb-4 text-xs uppercase tracking-[0.2em] text-bone-dim">Navegación</h3>
+        <ul class="space-y-2.5">
+          {
+            navLinks.map((l) => (
+              <li>
+                <a href={l.href} class="link-swipe text-sm text-bone/80 hover:text-bone">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-4 text-xs uppercase tracking-[0.2em] text-bone-dim">Áreas</h3>
+        <ul class="space-y-2.5">
+          {
+            areas.slice(0, 5).map((a) => (
+              <li>
+                <a href="#areas" class="link-swipe text-sm text-bone/80 hover:text-bone">
+                  {a.titulo}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 flex flex-col items-center justify-between gap-3 border-t border-line pt-8 text-xs uppercase tracking-wide text-bone-dim md:flex-row"
+    >
+      <span>© {year} {firma.nombre} — Todos los derechos reservados</span>
+      <span>{firma.direccion}</span>
+    </div>
   </div>
 </footer>

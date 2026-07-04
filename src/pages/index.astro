@@ -2,21 +2,31 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
-import Servicios from "../components/Servicios.astro";
-import Sobre from "../components/Sobre.astro";
+import Marquee from "../components/Marquee.astro";
+import Areas from "../components/Areas.astro";
+import Proceso from "../components/Proceso.astro";
+import Despacho from "../components/Despacho.astro";
+import Notariado from "../components/Notariado.astro";
+import Faq from "../components/Faq.astro";
 import Contacto from "../components/Contacto.astro";
 import Footer from "../components/Footer.astro";
 import WhatsappButton from "../components/WhatsappButton.astro";
-import ScrollReveal from "../components/ScrollReveal.astro";
+import Motion from "../components/Motion.astro";
 ---
 
 <Layout>
   <Header />
-  <Hero />
-  <Servicios />
-  <Sobre />
-  <Contacto />
+  <main>
+    <Hero />
+    <Marquee />
+    <Areas />
+    <Proceso />
+    <Despacho />
+    <Notariado />
+    <Faq />
+    <Contacto />
+  </main>
   <Footer />
   <WhatsappButton />
-  <ScrollReveal />
+  <Motion />
 </Layout>

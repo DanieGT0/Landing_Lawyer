@@ -1,70 +1,151 @@
 ---
 import { Image } from "astro:assets";
 import marble from "../assets/images/marble-dark.jpg";
-
-const WHATSAPP_NUMBER = "50370000000"; // TODO: reemplazar con número real (código país + número, sin +)
-const waMessage = encodeURIComponent(
-  "Hola, quisiera agendar una consulta legal.",
-);
+import { firma, whatsappLink } from "../data/site";
+import Icon from "./Icon.astro";
 ---
 
 <section
-  class="relative flex min-h-screen items-end overflow-hidden bg-ink grain"
+  id="inicio"
+  class="grain relative flex h-[100svh] min-h-[640px] w-full flex-col overflow-hidden bg-ink"
 >
+  <!-- Background layers -->
   <Image
     src={marble}
     alt=""
-    class="absolute inset-0 h-full w-full object-cover opacity-45"
+    class="ken-burns absolute inset-0 h-full w-full object-cover opacity-40"
     widths={[640, 1280, 1920, 2400]}
     sizes="100vw"
     loading="eager"
+    fetchpriority="high"
   />
+  <div class="aurora"></div>
+  <canvas id="hero-particles" class="absolute inset-0 z-[2] h-full w-full"
+  ></canvas>
   <div
-    class="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/20"
-  ></div>
+    class="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/50 to-ink/30"
+  >
+  </div>
 
-  <div class="relative mx-auto w-full max-w-7xl px-6 pb-24 pt-40 md:px-10">
+  <!-- TODO (opcional): video propio de fondo.
+       Coloca tu mp4 en /public/hero.mp4 y descomenta:
+  <video class="absolute inset-0 z-[1] h-full w-full object-cover opacity-40"
+    autoplay loop muted playsinline preload="auto" src="/hero.mp4"></video>
+  -->
+
+  <!-- Content -->
+  <div
+    class="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-6 pb-16 md:px-8 md:pb-24"
+  >
     <p
-      class="reveal mb-6 text-sm uppercase tracking-[0.35em] text-accent-soft"
+      class="reveal mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft"
       data-reveal
     >
-      Despacho jurídico — desde 2010
+      <span class="h-px w-10 bg-gold/60"></span>
+      {firma.tagline}
     </p>
 
     <h1
-      class="reveal font-display text-[13vw] leading-[0.9] tracking-tight text-paper md:text-[7.5vw]"
-      data-reveal
+      class="font-display text-[15vw] font-medium leading-[0.92] tracking-tight text-bone sm:text-[12vw] md:text-[8.5vw]"
+      data-kinetic
     >
-      Defendemos
-      <br />
-      lo que <span class="italic text-accent-soft">importa.</span>
+      <span class="kinetic-line">Defensa legal</span>
+      <span class="kinetic-line">
+        con <span class="italic text-gold-soft">criterio.</span>
+      </span>
     </h1>
 
     <div
-      class="reveal mt-10 flex flex-col gap-4 border-t border-paper/15 pt-8 sm:flex-row sm:items-center sm:justify-between"
-      data-reveal
+      class="mt-9 flex flex-col gap-8 border-t border-line pt-8 lg:flex-row lg:items-end lg:justify-between"
     >
-      <p class="max-w-md text-balance text-paper/70">
-        Asesoría legal en materia civil, mercantil, laboral y de familia.
-        Primera consulta sin costo — respondemos en menos de 24 horas.
+      <p class="reveal max-w-md text-balance text-bone-dim" data-reveal>
+        Asesoría y litigio en materia corporativa, notarial, laboral y de
+        familia en El Salvador. Primera consulta sin costo — respondemos en
+        menos de 24 horas.
       </p>
 
-      <div class="flex shrink-0 gap-3">
+      <div class="reveal flex shrink-0 flex-wrap gap-3" data-reveal>
         <a
-          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${waMessage}`}
+          href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium uppercase tracking-wide text-paper transition-transform hover:scale-105"
+          class="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
         >
-          WhatsApp
+          <Icon name="whatsapp" class="h-4 w-4" />
+          Escribir por WhatsApp
         </a>
         <a
           href="#contacto"
-          class="inline-flex items-center gap-2 rounded-full border border-paper/30 px-6 py-3 text-sm uppercase tracking-wide text-paper transition-colors hover:border-paper"
+          class="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm text-bone transition-colors hover:border-gold/50"
         >
-          Escribir consulta
+          Enviar consulta
+          <Icon name="arrow" class="h-4 w-4" />
         </a>
       </div>
     </div>
   </div>
+
+  <!-- Floating stat chips -->
+  <div
+    class="reveal absolute right-6 top-28 z-10 hidden flex-col items-end gap-1 md:right-8 md:flex"
+    data-reveal
+  >
+    <span class="font-display text-5xl text-bone">15<span class="text-gold">+</span></span>
+    <span class="text-xs uppercase tracking-wide text-bone-dim">Años de ejercicio</span>
+  </div>
 </section>
+
+<script>
+  // Lightweight particle field (adaptado de Veldara, con throttling + reduced-motion)
+  const canvas = document.getElementById("hero-particles") as HTMLCanvasElement | null;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (canvas && !reduce) {
+    const ctx = canvas.getContext("2d");
+    let particles: { x: number; y: number; vx: number; vy: number; s: number; o: number }[] = [];
+    let raf = 0;
+
+    function size() {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas!.width = canvas!.offsetWidth * dpr;
+      canvas!.height = canvas!.offsetHeight * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(90, Math.floor((canvas!.offsetWidth * canvas!.offsetHeight) / 16000));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas!.offsetWidth,
+        y: Math.random() * canvas!.offsetHeight,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        s: Math.random() * 1.4 + 0.4,
+        o: Math.random() * 0.5 + 0.15,
+      }));
+    }
+
+    function tick() {
+      const w = canvas!.offsetWidth;
+      const h = canvas!.offsetHeight;
+      ctx!.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.s, 0, Math.PI * 2);
+        ctx!.fillStyle = `rgba(200,161,90,${p.o})`;
+        ctx!.fill();
+      }
+      raf = requestAnimationFrame(tick);
+    }
+
+    size();
+    tick();
+    window.addEventListener("resize", () => {
+      cancelAnimationFrame(raf);
+      size();
+      tick();
+    });
+  }
+</script>

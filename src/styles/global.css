@@ -6,22 +6,28 @@
   --font-display: "Fraunces Variable", serif;
   --font-body: "Hanken Grotesk Variable", sans-serif;
 
-  --color-paper: #f2ede3;
-  --color-ink: #171310;
-  --color-ink-soft: #2b241d;
-  --color-accent: #7a1f2b;
-  --color-accent-soft: #a5473f;
-  --color-line: #d8cfbd;
+  /* Dark cinematic + gold — despacho premium */
+  --color-ink: #0a0908;
+  --color-ink-2: #12100d;
+  --color-ink-3: #1b1813;
+  --color-bone: #efe9dd;
+  --color-bone-dim: #b9b1a1;
+  --color-gold: #c8a15a;
+  --color-gold-soft: #e3c489;
+  --color-wine: #7a1f2b;
+  --color-line: rgba(239, 233, 221, 0.12);
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--color-ink);
 }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
+  background-color: var(--color-ink);
+  color: var(--color-bone);
   font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
 }
 
 .font-display {
@@ -29,22 +35,77 @@ body {
   font-optical-sizing: auto;
 }
 
-/* grain overlay */
-.grain {
-  position: relative;
+/* ---------- Aurora / gradient-mesh background ---------- */
+.aurora {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: 0.55;
 }
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.aurora::before {
+  width: 55vw;
+  height: 55vw;
+  left: -5%;
+  top: -10%;
+  background: radial-gradient(circle at 30% 30%, var(--color-gold), transparent 60%);
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.aurora::after {
+  width: 45vw;
+  height: 45vw;
+  right: -5%;
+  bottom: -10%;
+  background: radial-gradient(circle at 70% 70%, var(--color-wine), transparent 60%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(12%, 8%) scale(1.15); }
+}
+@keyframes drift2 {
+  0% { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-10%, -6%) scale(1); }
+}
+
+/* ---------- Ken Burns slow zoom for hero image ---------- */
+.ken-burns {
+  animation: kenburns 24s ease-in-out infinite alternate;
+}
+@keyframes kenburns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  100% { transform: scale(1.18) translate(-2%, -2%); }
+}
+
+/* ---------- Grain overlay ---------- */
 .grain::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.06;
+  z-index: 1;
+  opacity: 0.05;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   background-size: 180px 180px;
 }
 
-/* reveal-on-scroll base state (GSAP toggles .is-visible) */
+/* ---------- Glass surface ---------- */
+.glass {
+  background: rgba(239, 233, 221, 0.04);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ---------- Scroll reveal ---------- */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
@@ -52,10 +113,59 @@ body {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Kinetic headline: word-by-word rise */
+.kinetic-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(110%) rotate(3deg);
+}
+.kinetic-word.is-in {
+  opacity: 1;
+  transform: translateY(0) rotate(0);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kinetic-line {
+  overflow: hidden;
+  display: block;
+}
+
+/* Underline swipe on gold links */
+.link-swipe {
+  position: relative;
+}
+.link-swipe::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 0;
+  background: var(--color-gold);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-swipe:hover::after {
+  width: 100%;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-paper);
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before,
+  .aurora::after,
+  .ken-burns {
+    animation: none;
+  }
+  .reveal,
+  .kinetic-word {
+    opacity: 1;
+    transform: none;
+  }
 }

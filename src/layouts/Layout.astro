@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { firma } from "../data/site";
 
 interface Props {
   title?: string;
@@ -7,11 +8,12 @@ interface Props {
 }
 
 const {
-  title = "Alonso & Vega Abogados — Despacho Jurídico",
-  description = "Asesoría legal especializada. Consultas por WhatsApp o correo, respuesta en 24 horas.",
+  title = `${firma.nombreLargo} — El Salvador`,
+  description = "Asesoría y litigio legal en El Salvador: derecho corporativo, notarial, laboral y de familia. Consulta gratis por WhatsApp o correo, respuesta en 24 horas.",
 } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -19,9 +21,13 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0a0908" />
     <title>{title}</title>
   </head>
-  <body class="bg-paper text-ink font-body antialiased">
+  <body class="bg-ink text-bone font-body antialiased">
     <slot />
   </body>
 </html>

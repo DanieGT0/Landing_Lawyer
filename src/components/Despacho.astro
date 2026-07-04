@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import facade from "../assets/images/facade-geometric.jpg";
+import { stats } from "../data/site";
+---
+
+<section id="despacho" class="relative overflow-hidden bg-ink py-28 md:py-36">
+  <div class="mx-auto grid max-w-7xl gap-14 px-6 md:grid-cols-2 md:px-8">
+    <div class="reveal relative order-2 md:order-1" data-reveal>
+      <div class="relative aspect-[4/5] overflow-hidden rounded-xl">
+        <Image
+          src={facade}
+          alt="Fachada de edificio moderno"
+          class="ken-burns h-full w-full object-cover"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 768px) 45vw, 90vw"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent"></div>
+        <div class="absolute inset-0 rounded-xl border border-line"></div>
+      </div>
+    </div>
+
+    <div class="order-1 flex flex-col justify-center md:order-2">
+      <p
+        class="reveal mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft"
+        data-reveal
+      >
+        <span class="h-px w-10 bg-gold/60"></span>
+        El despacho
+      </p>
+      <h2 class="reveal font-display text-4xl leading-tight text-bone md:text-5xl" data-reveal>
+        Criterio jurídico claro, sin lenguaje que confunda.
+      </h2>
+      <p class="reveal mt-8 max-w-lg text-bone-dim" data-reveal>
+        Somos un equipo reducido de abogados y notarios litigantes. Cada caso lo
+        lleva directamente quien lo firma — no hay pasantes intermediarios ni
+        respuestas automáticas. Explicamos cada paso del proceso en términos que
+        cualquier cliente entiende.
+      </p>
+
+      <dl
+        class="reveal mt-12 grid grid-cols-2 gap-8 border-t border-line pt-10 sm:grid-cols-4"
+        data-reveal
+      >
+        {
+          stats.map((s) => (
+            <div>
+              <dt
+                class="font-display text-4xl text-gold-soft"
+                data-counter={s.valor}
+                data-suffix={s.sufijo}
+              >
+                0{s.sufijo}
+              </dt>
+              <dd class="mt-1.5 text-xs uppercase leading-tight tracking-wide text-bone-dim">
+                {s.label}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>

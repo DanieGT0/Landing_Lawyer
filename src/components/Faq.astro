@@ -1,0 +1,74 @@
+---
+import { faqs } from "../data/site";
+---
+
+<section id="faq" class="relative bg-ink py-28 md:py-36">
+  <div class="mx-auto grid max-w-7xl gap-14 px-6 md:px-8 lg:grid-cols-[0.7fr_1.3fr]">
+    <div class="lg:sticky lg:top-32 lg:h-fit">
+      <p
+        class="reveal mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft"
+        data-reveal
+      >
+        <span class="h-px w-10 bg-gold/60"></span>
+        Dudas
+      </p>
+      <h2 class="reveal font-display text-5xl leading-[0.95] text-bone md:text-6xl" data-reveal>
+        Preguntas frecuentes.
+      </h2>
+    </div>
+
+    <div class="reveal divide-y divide-line border-y border-line" data-reveal>
+      {
+        faqs.map((f) => (
+          <details class="faq-item group">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg text-bone transition-colors hover:text-gold-soft">
+              <span class="font-display">{f.q}</span>
+              <span class="faq-plus relative h-4 w-4 shrink-0 text-gold">
+                <span class="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />
+                <span class="faq-bar absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-current transition-transform duration-300" />
+              </span>
+            </summary>
+            <div class="faq-answer">
+              <p class="max-w-2xl pb-6 text-bone-dim">{f.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  /* Animación moderna del contenido de <details>; degrada a abrir/cerrar
+     instantáneo en navegadores sin soporte de ::details-content */
+  .faq-item::details-content {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: height 0.4s ease, opacity 0.4s ease, content-visibility 0.4s allow-discrete;
+  }
+  .faq-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+  details[open] .faq-bar {
+    transform: translateX(-50%) scaleY(0);
+  }
+</style>
+
+<script>
+  // Accordion: cerrar los demás al abrir uno
+  const items = document.querySelectorAll<HTMLDetailsElement>(".faq-item");
+  items.forEach((item) => {
+    item.addEventListener("toggle", () => {
+      if (item.open) {
+        items.forEach((other) => {
+          if (other !== item) other.open = false;
+        });
+      }
+    });
+  });
+</script>

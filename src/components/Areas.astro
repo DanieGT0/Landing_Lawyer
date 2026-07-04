@@ -1,0 +1,64 @@
+---
+import { areas } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<section id="areas" class="relative bg-ink py-28 md:py-36">
+  <div class="mx-auto max-w-7xl px-6 md:px-8">
+    <div
+      class="mb-16 flex flex-col gap-6 md:flex-row md:items-end md:justify-between"
+    >
+      <div>
+        <p
+          class="reveal mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft"
+          data-reveal
+        >
+          <span class="h-px w-10 bg-gold/60"></span>
+          Qué hacemos
+        </p>
+        <h2
+          class="reveal font-display text-5xl leading-[0.95] text-bone md:text-6xl"
+          data-reveal
+        >
+          Áreas de<br />práctica.
+        </h2>
+      </div>
+      <p class="reveal max-w-sm text-bone-dim" data-reveal>
+        Seis frentes donde acompañamos a personas y empresas en El Salvador con
+        criterio técnico y trato directo — sin intermediarios.
+      </p>
+    </div>
+
+    <div class="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+      {
+        areas.map((a, i) => (
+          <article
+            class="reveal group relative flex flex-col bg-ink p-8 transition-colors duration-500 hover:bg-ink-2"
+            data-reveal
+            style={`transition-delay:${(i % 3) * 90}ms`}
+          >
+            <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-lg border border-line text-gold transition-colors duration-500 group-hover:border-gold/50 group-hover:bg-gold/5">
+              <Icon name={a.icon} class="h-6 w-6" />
+            </div>
+
+            <h3 class="font-display text-2xl leading-tight text-bone">
+              {a.titulo}
+            </h3>
+            <p class="mt-3 text-sm leading-relaxed text-bone-dim">
+              {a.resumen}
+            </p>
+
+            <ul class="mt-6 space-y-2 border-t border-line pt-5">
+              {a.puntos.map((p) => (
+                <li class="flex items-start gap-2.5 text-sm text-bone-dim">
+                  <span class="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-gold" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

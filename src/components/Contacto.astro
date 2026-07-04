@@ -1,35 +1,31 @@
 ---
 import { Image } from "astro:assets";
 import signing from "../assets/images/signing-document.jpg";
+import { firma, areas, whatsappLink } from "../data/site";
+import Icon from "./Icon.astro";
 
-// TODO: reemplazar con datos reales del despacho
-const WHATSAPP_NUMBER = "50370000000"; // código país + número, sin '+' ni espacios
-const EMAIL = "contacto@alonsovega.com";
-
-const areas = [
-  "Civil y contratos",
-  "Mercantil y societario",
-  "Laboral",
-  "Familia y sucesiones",
-  "Otro",
-];
+const opciones = [...areas.map((a) => a.titulo), "Otro asunto"];
 ---
 
-<section id="contacto" class="relative overflow-hidden bg-paper py-28 md:py-36">
-  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-10">
+<section id="contacto" class="relative overflow-hidden bg-ink-2 py-28 md:py-36">
+  <div class="aurora opacity-30"></div>
+
+  <div class="relative mx-auto grid max-w-7xl gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-8">
+    <!-- Left: info -->
     <div class="reveal" data-reveal>
-      <p class="mb-6 text-sm uppercase tracking-[0.35em] text-accent">
-        Consulta
+      <p class="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft">
+        <span class="h-px w-10 bg-gold/60"></span>
+        Contacto
       </p>
-      <h2 class="font-display text-4xl leading-tight md:text-5xl">
-        Cuéntanos tu caso, respondemos nosotros.
+      <h2 class="font-display text-4xl leading-tight text-bone md:text-5xl">
+        Cuéntanos tu caso.<br />Respondemos nosotros.
       </h2>
-      <p class="mt-6 max-w-md text-ink-soft/75">
-        Completa el formulario y elige cómo prefieres que te contactemos.
-        También puedes escribirnos directo.
+      <p class="mt-6 max-w-md text-bone-dim">
+        Completa el formulario y elige cómo prefieres que te contactemos, o
+        escríbenos directo. Primera consulta sin costo.
       </p>
 
-      <div class="relative mt-10 aspect-[3/2] overflow-hidden rounded-sm">
+      <div class="relative mt-9 aspect-[3/2] overflow-hidden rounded-xl">
         <Image
           src={signing}
           alt="Firma de documento legal"
@@ -37,86 +33,107 @@ const areas = [
           widths={[480, 800, 1200]}
           sizes="(min-width: 768px) 45vw, 90vw"
         />
+        <div class="absolute inset-0 bg-gradient-to-t from-ink-2/60 to-transparent"></div>
       </div>
 
-      <div class="mt-8 space-y-3 border-t border-line pt-8">
+      <div class="mt-8 space-y-4 border-t border-line pt-8">
         <a
-          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-3 text-ink transition-colors hover:text-accent"
+          class="group flex items-center gap-4 text-bone transition-colors hover:text-gold-soft"
         >
-          <span class="text-sm uppercase tracking-wide text-ink-soft/60">WhatsApp</span>
-          <span class="font-display text-lg">+{WHATSAPP_NUMBER}</span>
+          <span class="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-gold">
+            <Icon name="whatsapp" class="h-5 w-5" />
+          </span>
+          <span>
+            <span class="block text-xs uppercase tracking-wide text-bone-dim">WhatsApp</span>
+            <span class="link-swipe font-display text-lg">+{firma.whatsapp}</span>
+          </span>
         </a>
         <a
-          href={`mailto:${EMAIL}`}
-          class="flex items-center gap-3 text-ink transition-colors hover:text-accent"
+          href={`mailto:${firma.email}`}
+          class="group flex items-center gap-4 text-bone transition-colors hover:text-gold-soft"
         >
-          <span class="text-sm uppercase tracking-wide text-ink-soft/60">Correo</span>
-          <span class="font-display text-lg">{EMAIL}</span>
+          <span class="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-gold">
+            <Icon name="spark" class="h-5 w-5" />
+          </span>
+          <span>
+            <span class="block text-xs uppercase tracking-wide text-bone-dim">Correo</span>
+            <span class="link-swipe font-display text-lg">{firma.email}</span>
+          </span>
         </a>
+        <p class="flex items-center gap-4 text-bone">
+          <span class="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-gold">
+            <Icon name="building" class="h-5 w-5" />
+          </span>
+          <span>
+            <span class="block text-xs uppercase tracking-wide text-bone-dim">Oficina</span>
+            <span class="font-display text-lg">{firma.direccion}</span>
+          </span>
+        </p>
       </div>
     </div>
 
+    <!-- Right: form -->
     <form
       id="contact-form"
-      class="reveal grid grid-cols-1 gap-5 rounded-sm border border-line bg-ink/[0.02] p-8 sm:grid-cols-2 md:p-10"
+      class="reveal glass grid grid-cols-1 gap-5 self-start rounded-2xl p-8 sm:grid-cols-2 md:p-10"
       data-reveal
     >
-      <label class="flex flex-col gap-2 sm:col-span-1">
-        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Nombre</span>
+      <label class="flex flex-col gap-2">
+        <span class="text-xs uppercase tracking-wide text-bone-dim">Nombre</span>
         <input
           type="text"
           name="nombre"
           required
-          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
           placeholder="Tu nombre completo"
+          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
         />
       </label>
 
-      <label class="flex flex-col gap-2 sm:col-span-1">
-        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Teléfono</span>
+      <label class="flex flex-col gap-2">
+        <span class="text-xs uppercase tracking-wide text-bone-dim">Teléfono</span>
         <input
           type="tel"
           name="telefono"
           required
-          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
           placeholder="+503 0000 0000"
+          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
         />
       </label>
 
       <label class="flex flex-col gap-2 sm:col-span-2">
-        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Correo</span>
+        <span class="text-xs uppercase tracking-wide text-bone-dim">Correo</span>
         <input
           type="email"
           name="correo"
           required
-          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
           placeholder="tu@correo.com"
+          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
         />
       </label>
 
       <label class="flex flex-col gap-2 sm:col-span-2">
-        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Área legal</span>
+        <span class="text-xs uppercase tracking-wide text-bone-dim">Área legal</span>
         <select
           name="area"
           required
-          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
+          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors focus:border-gold [&>option]:bg-ink-2"
         >
           <option value="" disabled selected>Selecciona un área</option>
-          {areas.map((a) => <option value={a}>{a}</option>)}
+          {opciones.map((o) => <option value={o}>{o}</option>)}
         </select>
       </label>
 
       <label class="flex flex-col gap-2 sm:col-span-2">
-        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Consulta</span>
+        <span class="text-xs uppercase tracking-wide text-bone-dim">Consulta</span>
         <textarea
           name="mensaje"
           required
           rows="4"
-          class="resize-none border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
           placeholder="Cuéntanos brevemente tu situación..."
+          class="resize-none border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
         ></textarea>
       </label>
 
@@ -124,23 +141,28 @@ const areas = [
         <button
           type="submit"
           data-action="whatsapp"
-          class="flex-1 rounded-full bg-accent px-6 py-3 text-sm font-medium uppercase tracking-wide text-paper transition-transform hover:scale-[1.02]"
+          class="flex flex-1 items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.02]"
         >
+          <Icon name="whatsapp" class="h-4 w-4" />
           Enviar por WhatsApp
         </button>
         <button
           type="submit"
           data-action="email"
-          class="flex-1 rounded-full border border-ink/20 px-6 py-3 text-sm uppercase tracking-wide text-ink transition-colors hover:border-accent hover:text-accent"
+          class="flex-1 rounded-full border border-line px-6 py-3 text-sm uppercase tracking-wide text-bone transition-colors hover:border-gold hover:text-gold-soft"
         >
           Enviar por correo
         </button>
       </div>
+      <p class="text-xs text-bone-dim/70 sm:col-span-2">
+        Al enviar aceptas ser contactado sobre tu consulta. Tratamos tu
+        información con confidencialidad profesional.
+      </p>
     </form>
   </div>
 </section>
 
-<script define:vars={{ WHATSAPP_NUMBER, EMAIL }}>
+<script define:vars={{ WHATSAPP_NUMBER: firma.whatsapp, EMAIL: firma.email }}>
   const form = document.getElementById("contact-form");
 
   function buildMessage(data) {
@@ -154,11 +176,9 @@ const areas = [
   }
 
   form?.addEventListener("submit", (e) => {
-    const submitter = e.submitter;
-    const action = submitter?.dataset.action;
+    const action = e.submitter?.dataset.action;
     if (!action) return;
     e.preventDefault();
-
     if (!form.reportValidity()) return;
 
     const data = new FormData(form);
@@ -169,7 +189,7 @@ const areas = [
         `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
         "_blank",
       );
-    } else if (action === "email") {
+    } else {
       const subject = encodeURIComponent(`Consulta legal — ${data.get("area")}`);
       window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${encodeURIComponent(message)}`;
     }

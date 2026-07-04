@@ -1,0 +1,77 @@
+---
+// Motor de animaciones del sitio: reveal-on-scroll, texto kinético y contadores.
+---
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // 1) Reveal genérico
+  document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+    if (reduce) {
+      el.classList.add("is-visible");
+      return;
+    }
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 88%",
+      once: true,
+      onEnter: () => el.classList.add("is-visible"),
+    });
+  });
+
+  // 2) Texto kinético: envolver cada palabra y revelar en cascada
+  document.querySelectorAll<HTMLElement>("[data-kinetic] .kinetic-line").forEach((line) => {
+    const words = line.textContent?.trim().split(/\s+/) ?? [];
+    // Preservar HTML interno simple (italic/span) si existe
+    if (line.querySelector("span, em, i")) {
+      // línea con markup: animar la línea completa como una palabra
+      const wrap = document.createElement("span");
+      wrap.className = "kinetic-word";
+      while (line.firstChild) wrap.appendChild(line.firstChild);
+      line.appendChild(wrap);
+    } else {
+      line.innerHTML = words
+        .map((w) => `<span class="kinetic-word">${w}</span>`)
+        .join(" ");
+    }
+  });
+
+  const kineticWords = document.querySelectorAll<HTMLElement>(".kinetic-word");
+  if (reduce) {
+    kineticWords.forEach((w) => w.classList.add("is-in"));
+  } else {
+    kineticWords.forEach((w, i) => {
+      setTimeout(() => w.classList.add("is-in"), 150 + i * 120);
+    });
+  }
+
+  // 3) Contadores animados
+  document.querySelectorAll<HTMLElement>("[data-counter]").forEach((el) => {
+    const target = parseInt(el.dataset.counter || "0", 10);
+    const suffix = el.dataset.suffix || "";
+    if (reduce) {
+      el.textContent = `${target}${suffix}`;
+      return;
+    }
+    ScrollTrigger.create({
+      trigger: el,
+      start: "top 90%",
+      once: true,
+      onEnter: () => {
+        const obj = { v: 0 };
+        gsap.to(obj, {
+          v: target,
+          duration: 1.6,
+          ease: "power2.out",
+          onUpdate: () => {
+            el.textContent = `${Math.round(obj.v)}${suffix}`;
+          },
+        });
+      },
+    });
+  });
+</script>

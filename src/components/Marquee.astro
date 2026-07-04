@@ -1,0 +1,39 @@
+---
+const items = [
+  "Constitución de sociedades",
+  "Registro de marcas",
+  "Servicios notariales",
+  "Derecho laboral",
+  "Sucesiones",
+  "Compliance LPLDA",
+  "Divorcios y familia",
+  "Contratos mercantiles",
+];
+const loop = [...items, ...items];
+---
+
+<section class="border-y border-line bg-ink-2 py-5 overflow-hidden">
+  <div class="marquee flex w-max gap-10 whitespace-nowrap">
+    {
+      loop.map((t) => (
+        <span class="flex items-center gap-10 font-display text-lg text-bone-dim">
+          {t}
+          <span class="text-gold">◆</span>
+        </span>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .marquee {
+    animation: scroll 32s linear infinite;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { animation: none; }
+  }
+</style>
