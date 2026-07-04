@@ -1,0 +1,153 @@
+---
+// Motor de carrusel 3D infinito reutilizable.
+// Adaptado del "3D Infinite Carousel" de Clément Grellier (Codrops, MIT).
+// Aplica a cualquier contenedor [data-carousel3d] con un track [data-c3d-track]
+// y tarjetas hijas. Drag + rueda + deriva automática + wrap infinito.
+---
+<script>
+  type Item = { el: HTMLElement; x: number };
+
+  const REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Ajustes visuales
+  const MAX_ROTATION = 22;   // grados
+  const MAX_DEPTH = 110;     // px en Z
+  const MIN_SCALE = 0.82;
+  const SCALE_RANGE = 0.18;
+  const FRICTION = 0.92;
+  const WHEEL_SENS = 0.5;
+  const AUTO_SPEED = 26;     // px/seg de deriva automática
+
+  function initCarousel(root: HTMLElement) {
+    const track = root.querySelector<HTMLElement>("[data-c3d-track]");
+    if (!track) return;
+    const cards = Array.from(track.children) as HTMLElement[];
+    if (cards.length === 0) return;
+
+    const GAP = parseInt(root.dataset.gap || "26", 10);
+
+    // Fallback accesible: scroll horizontal simple
+    if (REDUCE) {
+      root.style.overflowX = "auto";
+      (root.style as any).scrollbarWidth = "none";
+      return;
+    }
+
+    root.style.overflow = "hidden";
+    root.style.perspective = "1200px";
+    track.style.position = "absolute";
+    track.style.inset = "0";
+    track.style.transformStyle = "preserve-3d";
+
+    let CARD_W = 0, CARD_H = 0, STEP = 0, TRACK = 0;
+    let SCROLL_X = 0, vX = 0;
+    let VW_HALF = 0;
+    let dragging = false, hovering = false;
+    let lastX = 0, lastT = 0, lastDelta = 0, lastTime = 0;
+    let items: Item[] = [];
+    let raf = 0;
+
+    const mod = (n: number, m: number) => ((n % m) + m) % m;
+
+    function measure() {
+      const r = cards[0].getBoundingClientRect();
+      CARD_W = r.width;
+      CARD_H = r.height;
+      STEP = CARD_W + GAP;
+      TRACK = cards.length * STEP;
+      VW_HALF = root.clientWidth * 0.5;
+      root.style.height = CARD_H + "px";
+      items = cards.map((el, i) => {
+        el.style.position = "absolute";
+        el.style.top = "50%";
+        el.style.left = "50%";
+        el.style.marginLeft = -CARD_W / 2 + "px";
+        el.style.willChange = "transform, filter";
+        el.style.backfaceVisibility = "hidden";
+        return { el, x: i * STEP };
+      });
+    }
+
+    function transformFor(screenX: number) {
+      const norm = Math.max(-1, Math.min(1, screenX / VW_HALF));
+      const inv = 1 - Math.abs(norm);
+      const ry = -norm * MAX_ROTATION;
+      const tz = inv * MAX_DEPTH;
+      const scale = MIN_SCALE + inv * SCALE_RANGE;
+      return { t: `translate3d(${screenX}px,-50%,${tz}px) rotateY(${ry}deg) scale(${scale})`, z: tz, norm };
+    }
+
+    function update() {
+      const half = TRACK / 2;
+      for (const it of items) {
+        let pos = it.x - SCROLL_X;
+        if (pos < -half) pos += TRACK;
+        if (pos > half) pos -= TRACK;
+        const { t, z, norm } = transformFor(pos);
+        it.el.style.transform = t;
+        it.el.style.zIndex = String(1000 + Math.round(z));
+        it.el.style.filter = `blur(${(Math.abs(norm) > 0.72 ? 1.5 * Math.abs(norm) : 0).toFixed(2)}px)`;
+        it.el.style.opacity = String(Math.max(0.35, 1 - Math.abs(norm) * 0.5));
+      }
+    }
+
+    function tick(t: number) {
+      const dt = lastTime ? Math.min((t - lastTime) / 1000, 0.05) : 0;
+      lastTime = t;
+      const auto = dragging || hovering ? 0 : AUTO_SPEED;
+      SCROLL_X = mod(SCROLL_X + (vX + auto) * dt, TRACK);
+      vX *= Math.pow(FRICTION, dt * 60);
+      if (Math.abs(vX) < 0.02) vX = 0;
+      update();
+      raf = requestAnimationFrame(tick);
+    }
+
+    // Eventos
+    root.addEventListener("wheel", (e) => {
+      const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (Math.abs(d) < 2) return;
+      e.preventDefault();
+      vX += d * WHEEL_SENS * 12;
+    }, { passive: false });
+
+    root.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      lastX = e.clientX; lastT = performance.now(); lastDelta = 0;
+      root.setPointerCapture(e.pointerId);
+      root.style.cursor = "grabbing";
+    });
+    root.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const now = performance.now();
+      const dx = e.clientX - lastX;
+      const dtt = Math.max(1, now - lastT) / 1000;
+      SCROLL_X = mod(SCROLL_X - dx, TRACK);
+      lastDelta = dx / dtt;
+      lastX = e.clientX; lastT = now;
+    });
+    const up = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      try { root.releasePointerCapture(e.pointerId); } catch {}
+      vX = -lastDelta;
+      root.style.cursor = "grab";
+    };
+    root.addEventListener("pointerup", up);
+    root.addEventListener("pointercancel", up);
+    root.addEventListener("mouseenter", () => (hovering = true));
+    root.addEventListener("mouseleave", () => (hovering = false));
+
+    let rt: number;
+    window.addEventListener("resize", () => {
+      clearTimeout(rt);
+      rt = window.setTimeout(() => { const ratio = TRACK ? SCROLL_X / TRACK : 0; measure(); SCROLL_X = mod(ratio * TRACK, TRACK); update(); }, 100);
+    });
+
+    root.style.cursor = "grab";
+    measure();
+    update();
+    raf = requestAnimationFrame(tick);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-carousel3d]").forEach(initCarousel);
+</script>

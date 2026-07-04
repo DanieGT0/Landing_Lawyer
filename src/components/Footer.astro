@@ -1,10 +1,23 @@
 ---
+import { Image } from "astro:assets";
+import library from "../assets/images/library.jpg";
 import { firma, areas, navLinks, whatsappLink } from "../data/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-header pt-20 pb-10 text-cream">
-  <div class="mx-auto max-w-7xl px-6 md:px-8">
+<footer class="relative overflow-hidden bg-header pt-20 pb-10 text-cream">
+  <!-- Imagen de fondo tenue -->
+  <Image
+    src={library}
+    alt=""
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.10]"
+    widths={[800, 1600]}
+    sizes="100vw"
+    loading="lazy"
+  />
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-header via-header/90 to-header/70"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 md:px-8">
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
       <div>
         <a href="#inicio" class="font-display text-2xl tracking-tight text-cream">
