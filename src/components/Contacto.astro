@@ -1,0 +1,177 @@
+---
+import { Image } from "astro:assets";
+import signing from "../assets/images/signing-document.jpg";
+
+// TODO: reemplazar con datos reales del despacho
+const WHATSAPP_NUMBER = "50370000000"; // código país + número, sin '+' ni espacios
+const EMAIL = "contacto@alonsovega.com";
+
+const areas = [
+  "Civil y contratos",
+  "Mercantil y societario",
+  "Laboral",
+  "Familia y sucesiones",
+  "Otro",
+];
+---
+
+<section id="contacto" class="relative overflow-hidden bg-paper py-28 md:py-36">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-10">
+    <div class="reveal" data-reveal>
+      <p class="mb-6 text-sm uppercase tracking-[0.35em] text-accent">
+        Consulta
+      </p>
+      <h2 class="font-display text-4xl leading-tight md:text-5xl">
+        Cuéntanos tu caso, respondemos nosotros.
+      </h2>
+      <p class="mt-6 max-w-md text-ink-soft/75">
+        Completa el formulario y elige cómo prefieres que te contactemos.
+        También puedes escribirnos directo.
+      </p>
+
+      <div class="relative mt-10 aspect-[3/2] overflow-hidden rounded-sm">
+        <Image
+          src={signing}
+          alt="Firma de documento legal"
+          class="h-full w-full object-cover"
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 768px) 45vw, 90vw"
+        />
+      </div>
+
+      <div class="mt-8 space-y-3 border-t border-line pt-8">
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-3 text-ink transition-colors hover:text-accent"
+        >
+          <span class="text-sm uppercase tracking-wide text-ink-soft/60">WhatsApp</span>
+          <span class="font-display text-lg">+{WHATSAPP_NUMBER}</span>
+        </a>
+        <a
+          href={`mailto:${EMAIL}`}
+          class="flex items-center gap-3 text-ink transition-colors hover:text-accent"
+        >
+          <span class="text-sm uppercase tracking-wide text-ink-soft/60">Correo</span>
+          <span class="font-display text-lg">{EMAIL}</span>
+        </a>
+      </div>
+    </div>
+
+    <form
+      id="contact-form"
+      class="reveal grid grid-cols-1 gap-5 rounded-sm border border-line bg-ink/[0.02] p-8 sm:grid-cols-2 md:p-10"
+      data-reveal
+    >
+      <label class="flex flex-col gap-2 sm:col-span-1">
+        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Nombre</span>
+        <input
+          type="text"
+          name="nombre"
+          required
+          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
+          placeholder="Tu nombre completo"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2 sm:col-span-1">
+        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Teléfono</span>
+        <input
+          type="tel"
+          name="telefono"
+          required
+          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
+          placeholder="+503 0000 0000"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2 sm:col-span-2">
+        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Correo</span>
+        <input
+          type="email"
+          name="correo"
+          required
+          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
+          placeholder="tu@correo.com"
+        />
+      </label>
+
+      <label class="flex flex-col gap-2 sm:col-span-2">
+        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Área legal</span>
+        <select
+          name="area"
+          required
+          class="border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
+        >
+          <option value="" disabled selected>Selecciona un área</option>
+          {areas.map((a) => <option value={a}>{a}</option>)}
+        </select>
+      </label>
+
+      <label class="flex flex-col gap-2 sm:col-span-2">
+        <span class="text-xs uppercase tracking-wide text-ink-soft/60">Consulta</span>
+        <textarea
+          name="mensaje"
+          required
+          rows="4"
+          class="resize-none border-b border-line bg-transparent py-2 outline-none transition-colors focus:border-accent"
+          placeholder="Cuéntanos brevemente tu situación..."
+        ></textarea>
+      </label>
+
+      <div class="flex flex-col gap-3 pt-2 sm:col-span-2 sm:flex-row">
+        <button
+          type="submit"
+          data-action="whatsapp"
+          class="flex-1 rounded-full bg-accent px-6 py-3 text-sm font-medium uppercase tracking-wide text-paper transition-transform hover:scale-[1.02]"
+        >
+          Enviar por WhatsApp
+        </button>
+        <button
+          type="submit"
+          data-action="email"
+          class="flex-1 rounded-full border border-ink/20 px-6 py-3 text-sm uppercase tracking-wide text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          Enviar por correo
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script define:vars={{ WHATSAPP_NUMBER, EMAIL }}>
+  const form = document.getElementById("contact-form");
+
+  function buildMessage(data) {
+    return (
+      `Consulta legal — ${data.get("area")}\n\n` +
+      `Nombre: ${data.get("nombre")}\n` +
+      `Teléfono: ${data.get("telefono")}\n` +
+      `Correo: ${data.get("correo")}\n\n` +
+      `Mensaje:\n${data.get("mensaje")}`
+    );
+  }
+
+  form?.addEventListener("submit", (e) => {
+    const submitter = e.submitter;
+    const action = submitter?.dataset.action;
+    if (!action) return;
+    e.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const message = buildMessage(data);
+
+    if (action === "whatsapp") {
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+        "_blank",
+      );
+    } else if (action === "email") {
+      const subject = encodeURIComponent(`Consulta legal — ${data.get("area")}`);
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${encodeURIComponent(message)}`;
+    }
+  });
+</script>

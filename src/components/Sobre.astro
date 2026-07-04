@@ -1,0 +1,55 @@
+---
+import { Image } from "astro:assets";
+import facade from "../assets/images/facade-geometric.jpg";
+---
+
+<section id="nosotros" class="relative overflow-hidden bg-ink py-28 text-paper md:py-36">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 md:grid-cols-2 md:px-10">
+    <div class="reveal relative aspect-[4/5] overflow-hidden rounded-sm" data-reveal>
+      <Image
+        src={facade}
+        alt="Fachada geométrica de edificio moderno"
+        class="h-full w-full object-cover"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 768px) 40vw, 90vw"
+      />
+      <div class="absolute inset-0 border border-paper/10"></div>
+    </div>
+
+    <div class="reveal flex flex-col justify-center" data-reveal>
+      <p class="mb-6 text-sm uppercase tracking-[0.35em] text-accent-soft">
+        El despacho
+      </p>
+      <h2 class="font-display text-4xl leading-tight md:text-5xl">
+        Criterio jurídico claro, sin lenguaje que confunda.
+      </h2>
+      <p class="mt-8 max-w-lg text-paper/70">
+        Somos un equipo reducido de abogados litigantes. Cada caso lo lleva
+        directamente quien lo firma — no hay pasantes intermediarios ni
+        respuestas automáticas. Explicamos cada paso del proceso en términos
+        que cualquier cliente entiende.
+      </p>
+
+      <dl class="mt-12 grid grid-cols-3 gap-6 border-t border-paper/15 pt-8">
+        <div>
+          <dt class="font-display text-4xl text-accent-soft">15+</dt>
+          <dd class="mt-1 text-xs uppercase tracking-wide text-paper/60">
+            Años de práctica
+          </dd>
+        </div>
+        <div>
+          <dt class="font-display text-4xl text-accent-soft">400+</dt>
+          <dd class="mt-1 text-xs uppercase tracking-wide text-paper/60">
+            Casos resueltos
+          </dd>
+        </div>
+        <div>
+          <dt class="font-display text-4xl text-accent-soft">24h</dt>
+          <dd class="mt-1 text-xs uppercase tracking-wide text-paper/60">
+            Tiempo de respuesta
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>

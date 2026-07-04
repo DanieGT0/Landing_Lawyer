@@ -1,0 +1,56 @@
+---
+const links = [
+  { href: "#servicios", label: "Áreas" },
+  { href: "#nosotros", label: "Despacho" },
+  { href: "#contacto", label: "Contacto" },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 transition-colors duration-500"
+>
+  <div
+    class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10"
+  >
+    <a href="#" class="font-display text-xl tracking-tight text-paper">
+      Alonso <span class="text-accent-soft">&amp;</span> Vega
+    </a>
+
+    <nav class="hidden items-center gap-10 md:flex">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="group relative text-sm uppercase tracking-[0.15em] text-paper/80 transition-colors hover:text-paper"
+          >
+            {link.label}
+            <span class="absolute -bottom-1 left-0 h-px w-0 bg-accent-soft transition-all duration-300 group-hover:w-full" />
+          </a>
+        ))
+      }
+    </nav>
+
+    <a
+      href="#contacto"
+      class="hidden rounded-full border border-paper/30 px-5 py-2 text-sm uppercase tracking-[0.1em] text-paper transition-all hover:border-accent-soft hover:bg-accent-soft/10 md:inline-block"
+    >
+      Consulta gratis
+    </a>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById("site-header");
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 40) {
+        header.classList.add("bg-ink/90", "backdrop-blur-md", "shadow-lg", "shadow-black/20");
+      } else {
+        header.classList.remove("bg-ink/90", "backdrop-blur-md", "shadow-lg", "shadow-black/20");
+      }
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  }
+</script>
