@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import library from "../assets/images/library.jpg";
+---
+
+<section class="relative overflow-hidden">
+  <!-- Parallax background image -->
+  <div class="absolute inset-0 -z-0" data-parallax="0.25">
+    <Image
+      src={library}
+      alt="Biblioteca jurídica"
+      class="h-[130%] w-full object-cover"
+      widths={[800, 1600, 2000]}
+      sizes="100vw"
+      loading="lazy"
+    />
+  </div>
+  <div class="absolute inset-0 bg-header/80"></div>
+
+  <div class="relative mx-auto max-w-4xl px-6 py-28 text-center md:py-36">
+    <span class="font-display text-6xl leading-none text-theme">“</span>
+    <blockquote
+      class="reveal -mt-6 font-display text-3xl leading-snug text-cream md:text-4xl"
+      data-reveal
+    >
+      La ley se cumple mejor cuando se entiende. Por eso explicamos cada caso
+      en términos claros, y defendemos cada expediente como si fuera propio.
+    </blockquote>
+    <p class="reveal mt-8 text-sm uppercase tracking-[0.25em] text-theme" data-reveal>
+      Alonso &amp; Vega — Abogados y Notarios
+    </p>
+  </div>
+</section>

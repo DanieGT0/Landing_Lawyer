@@ -74,4 +74,38 @@
       },
     });
   });
+
+  // 4) Parallax de fondos [data-parallax="0.25"]
+  if (!reduce) {
+    document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
+      const amount = parseFloat(el.dataset.parallax || "0.2");
+      gsap.to(el, {
+        yPercent: amount * 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el.parentElement || el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+  }
+
+  // 5) Tilt 3D en tarjetas [data-tilt]
+  if (!reduce && window.matchMedia("(pointer: fine)").matches) {
+    document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {
+      const max = 6;
+      card.style.transformStyle = "preserve-3d";
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(900px) rotateY(${px * max}deg) rotateX(${-py * max}deg)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+  }
 </script>

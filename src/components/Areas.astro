@@ -22,8 +22,9 @@ import Icon from "./Icon.astro";
       {
         areas.map((a, i) => (
           <article
-            class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 transition-all duration-500 hover:-translate-y-1 hover:border-theme/40 hover:shadow-xl hover:shadow-black/5"
+            class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 transition-[border-color,box-shadow] duration-300 hover:border-theme/40 hover:shadow-xl hover:shadow-black/5"
             data-reveal
+            data-tilt
             style={`transition-delay:${(i % 3) * 90}ms`}
           >
             <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-theme/10 text-theme transition-colors duration-500 group-hover:bg-theme group-hover:text-white">

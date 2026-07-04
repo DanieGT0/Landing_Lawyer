@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import courthouse from "../assets/images/courthouse.jpg";
 import { firma, whatsappLink } from "../data/site";
 import Icon from "./Icon.astro";
 ---
@@ -7,21 +9,23 @@ import Icon from "./Icon.astro";
   id="inicio"
   class="relative overflow-hidden bg-cream pt-32 pb-20 md:pt-40 md:pb-28"
 >
-  <!-- Decorative gold glow -->
-  <div
-    class="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-theme/10 blur-3xl"
-  >
-  </div>
+  <!-- Faint courthouse backdrop -->
+  <Image
+    src={courthouse}
+    alt=""
+    class="pointer-events-none absolute right-0 top-0 h-full w-full object-cover opacity-[0.06] [mask-image:linear-gradient(to_left,black,transparent_70%)]"
+    widths={[800, 1600, 2400]}
+    sizes="100vw"
+    loading="eager"
+  />
+  <div class="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-theme/10 blur-3xl"></div>
 
   <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-6 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
     <!-- Left: copy -->
     <div>
       <p class="reveal eyebrow mb-6" data-reveal>{firma.tagline}</p>
 
-      <h1
-        class="font-display text-5xl leading-[1.05] text-header sm:text-6xl md:text-7xl"
-        data-kinetic
-      >
+      <h1 class="font-display text-5xl leading-[1.05] text-header sm:text-6xl md:text-7xl" data-kinetic>
         <span class="kinetic-line">Defensa legal</span>
         <span class="kinetic-line">con <span class="text-theme italic">criterio.</span></span>
       </h1>
@@ -32,7 +36,7 @@ import Icon from "./Icon.astro";
         menos de 24 horas.
       </p>
 
-      <div class="reveal mt-9 flex flex-wrap gap-3" data-reveal>
+      <div class="reveal mt-9 flex flex-wrap items-center gap-3" data-reveal>
         <a
           href={whatsappLink()}
           target="_blank"
@@ -42,16 +46,20 @@ import Icon from "./Icon.astro";
           <Icon name="whatsapp" class="h-4 w-4" />
           Escribir por WhatsApp
         </a>
-        <a
-          href="#contacto"
-          class="inline-flex items-center gap-2 rounded-full border border-line-2 px-6 py-3.5 text-sm font-medium text-header transition-colors hover:border-theme hover:text-theme"
+        <!-- Play intro -->
+        <button
+          data-lightbox
+          data-src="/intro.mp4"
+          class="group inline-flex items-center gap-3 text-sm font-medium text-header transition-colors hover:text-theme"
         >
-          Enviar consulta
-          <Icon name="arrow" class="h-4 w-4" />
-        </a>
+          <span class="relative flex h-12 w-12 items-center justify-center rounded-full border border-theme text-theme">
+            <span class="absolute inset-0 rounded-full bg-theme/20 animate-ping"></span>
+            <svg viewBox="0 0 24 24" class="relative h-4 w-4" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          Ver intro
+        </button>
       </div>
 
-      <!-- Mini stats -->
       <dl class="reveal mt-12 flex flex-wrap gap-x-10 gap-y-6 border-t border-line pt-8" data-reveal>
         <div>
           <dt class="font-display text-3xl text-header">15+</dt>
@@ -68,27 +76,19 @@ import Icon from "./Icon.astro";
       </dl>
     </div>
 
-    <!-- Right: framed video -->
+    <!-- Right: framed video with gold circle motif -->
     <div class="reveal relative" data-reveal>
+      <!-- Gold circle behind (Kanun style) -->
+      <div class="absolute left-1/2 top-8 -z-0 h-[85%] w-[85%] -translate-x-1/2 rounded-full bg-theme/25"></div>
+
       <div class="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-xl shadow-black/10">
-        <video
-          class="h-full w-full object-cover"
-          autoplay
-          loop
-          muted
-          playsinline
-          preload="metadata"
-          poster=""
-        >
+        <video class="h-full w-full object-cover" autoplay loop muted playsinline preload="metadata">
           <source src="/hero.mp4" type="video/mp4" />
         </video>
         <div class="absolute inset-0 bg-gradient-to-t from-header/25 to-transparent"></div>
       </div>
 
-      <!-- Floating badge -->
-      <div
-        class="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-xl border border-line bg-surface px-5 py-4 shadow-lg shadow-black/10"
-      >
+      <div class="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-xl border border-line bg-surface px-5 py-4 shadow-lg shadow-black/10">
         <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-theme/10 text-theme">
           <Icon name="shield" class="h-6 w-6" />
         </span>

@@ -1,0 +1,52 @@
+---
+import { whatsappLink } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<section class="relative overflow-hidden">
+  <!-- Video background -->
+  <video
+    class="absolute inset-0 h-full w-full object-cover"
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="none"
+  >
+    <source src="/cta.mp4" type="video/mp4" />
+  </video>
+  <div class="absolute inset-0 bg-header/75"></div>
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-r from-header via-header/40 to-transparent"></div>
+
+  <div class="relative mx-auto flex max-w-7xl flex-col items-start gap-8 px-6 py-24 md:px-8 md:py-32 lg:flex-row lg:items-center lg:justify-between">
+    <div>
+      <p class="reveal eyebrow mb-5 !text-theme" data-reveal>Primera consulta gratis</p>
+      <h2 class="reveal max-w-2xl font-display text-4xl leading-tight text-cream md:text-5xl" data-reveal>
+        ¿Tienes un caso? Hablemos hoy mismo.
+      </h2>
+      <p class="reveal mt-5 max-w-lg text-cream/70" data-reveal>
+        Escríbenos por WhatsApp o correo. Valoramos tu situación sin costo y te
+        damos una ruta clara en menos de 24 horas.
+      </p>
+    </div>
+
+    <div class="reveal flex shrink-0 flex-col gap-3 sm:flex-row lg:flex-col" data-reveal>
+      <a
+        href={whatsappLink()}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-theme px-7 py-4 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
+      >
+        <Icon name="whatsapp" class="h-4 w-4" />
+        Escribir por WhatsApp
+      </a>
+      <a
+        href="#contacto"
+        class="inline-flex items-center justify-center gap-2 rounded-full border border-cream/40 px-7 py-4 text-sm font-medium text-cream transition-colors hover:bg-cream hover:text-header"
+      >
+        Enviar consulta
+        <Icon name="arrow" class="h-4 w-4" />
+      </a>
+    </div>
+  </div>
+</section>
