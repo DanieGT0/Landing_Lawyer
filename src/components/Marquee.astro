@@ -12,13 +12,13 @@ const items = [
 const loop = [...items, ...items];
 ---
 
-<section class="border-y border-line bg-ink-2 py-5 overflow-hidden">
+<section class="border-y border-line bg-surface py-5 overflow-hidden">
   <div class="marquee flex w-max gap-10 whitespace-nowrap">
     {
       loop.map((t) => (
-        <span class="flex items-center gap-10 font-display text-lg text-bone-dim">
+        <span class="flex items-center gap-10 font-display text-lg text-header/70">
           {t}
-          <span class="text-gold">◆</span>
+          <span class="text-theme">◆</span>
         </span>
       ))
     }
@@ -27,7 +27,7 @@ const loop = [...items, ...items];
 
 <style>
   .marquee {
-    animation: scroll 32s linear infinite;
+    animation: scroll 34s linear infinite;
   }
   @keyframes scroll {
     from { transform: translateX(0); }

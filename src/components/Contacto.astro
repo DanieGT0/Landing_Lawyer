@@ -7,25 +7,22 @@ import Icon from "./Icon.astro";
 const opciones = [...areas.map((a) => a.titulo), "Otro asunto"];
 ---
 
-<section id="contacto" class="relative overflow-hidden bg-ink-2 py-28 md:py-36">
-  <div class="aurora opacity-30"></div>
+<section id="contacto" class="relative overflow-hidden bg-surface py-24 md:py-32">
+  <div class="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-theme/10 blur-3xl"></div>
 
   <div class="relative mx-auto grid max-w-7xl gap-14 px-6 md:grid-cols-[0.9fr_1.1fr] md:px-8">
-    <!-- Left: info -->
+    <!-- Info -->
     <div class="reveal" data-reveal>
-      <p class="mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft">
-        <span class="h-px w-10 bg-gold/60"></span>
-        Contacto
-      </p>
-      <h2 class="font-display text-4xl leading-tight text-bone md:text-5xl">
-        Cuéntanos tu caso.<br />Respondemos nosotros.
+      <p class="eyebrow mb-5">Contacto</p>
+      <h2 class="font-display text-3xl leading-tight text-header md:text-5xl">
+        Cuéntanos tu caso. Respondemos nosotros.
       </h2>
-      <p class="mt-6 max-w-md text-bone-dim">
+      <p class="mt-6 max-w-md text-body-text">
         Completa el formulario y elige cómo prefieres que te contactemos, o
         escríbenos directo. Primera consulta sin costo.
       </p>
 
-      <div class="relative mt-9 aspect-[3/2] overflow-hidden rounded-xl">
+      <div class="relative mt-9 aspect-[3/2] overflow-hidden rounded-2xl shadow-lg shadow-black/10">
         <Image
           src={signing}
           alt="Firma de documento legal"
@@ -33,7 +30,6 @@ const opciones = [...areas.map((a) => a.titulo), "Otro asunto"];
           widths={[480, 800, 1200]}
           sizes="(min-width: 768px) 45vw, 90vw"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-ink-2/60 to-transparent"></div>
       </div>
 
       <div class="mt-8 space-y-4 border-t border-line pt-8">
@@ -41,120 +37,91 @@ const opciones = [...areas.map((a) => a.titulo), "Otro asunto"];
           href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 text-bone transition-colors hover:text-gold-soft"
+          class="group flex items-center gap-4 text-header transition-colors hover:text-theme"
         >
-          <span class="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-gold">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-theme/10 text-theme">
             <Icon name="whatsapp" class="h-5 w-5" />
           </span>
           <span>
-            <span class="block text-xs uppercase tracking-wide text-bone-dim">WhatsApp</span>
+            <span class="block text-xs uppercase tracking-wide text-body-text">WhatsApp</span>
             <span class="link-swipe font-display text-lg">+{firma.whatsapp}</span>
           </span>
         </a>
         <a
           href={`mailto:${firma.email}`}
-          class="group flex items-center gap-4 text-bone transition-colors hover:text-gold-soft"
+          class="group flex items-center gap-4 text-header transition-colors hover:text-theme"
         >
-          <span class="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-gold">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-theme/10 text-theme">
             <Icon name="spark" class="h-5 w-5" />
           </span>
           <span>
-            <span class="block text-xs uppercase tracking-wide text-bone-dim">Correo</span>
+            <span class="block text-xs uppercase tracking-wide text-body-text">Correo</span>
             <span class="link-swipe font-display text-lg">{firma.email}</span>
           </span>
         </a>
-        <p class="flex items-center gap-4 text-bone">
-          <span class="flex h-10 w-10 items-center justify-center rounded-lg border border-line text-gold">
+        <p class="flex items-center gap-4 text-header">
+          <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-theme/10 text-theme">
             <Icon name="building" class="h-5 w-5" />
           </span>
           <span>
-            <span class="block text-xs uppercase tracking-wide text-bone-dim">Oficina</span>
+            <span class="block text-xs uppercase tracking-wide text-body-text">Oficina</span>
             <span class="font-display text-lg">{firma.direccion}</span>
           </span>
         </p>
       </div>
     </div>
 
-    <!-- Right: form -->
+    <!-- Form -->
     <form
       id="contact-form"
-      class="reveal glass grid grid-cols-1 gap-5 self-start rounded-2xl p-8 sm:grid-cols-2 md:p-10"
+      class="reveal grid grid-cols-1 gap-5 self-start rounded-2xl border border-line bg-cream p-8 shadow-xl shadow-black/5 sm:grid-cols-2 md:p-10"
       data-reveal
     >
       <label class="flex flex-col gap-2">
-        <span class="text-xs uppercase tracking-wide text-bone-dim">Nombre</span>
-        <input
-          type="text"
-          name="nombre"
-          required
-          placeholder="Tu nombre completo"
-          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
-        />
+        <span class="text-xs uppercase tracking-wide text-body-text">Nombre</span>
+        <input type="text" name="nombre" required placeholder="Tu nombre completo"
+          class="rounded-lg border border-line bg-surface px-4 py-2.5 text-header outline-none transition-colors placeholder:text-body-text/50 focus:border-theme" />
       </label>
 
       <label class="flex flex-col gap-2">
-        <span class="text-xs uppercase tracking-wide text-bone-dim">Teléfono</span>
-        <input
-          type="tel"
-          name="telefono"
-          required
-          placeholder="+503 0000 0000"
-          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
-        />
+        <span class="text-xs uppercase tracking-wide text-body-text">Teléfono</span>
+        <input type="tel" name="telefono" required placeholder="+503 0000 0000"
+          class="rounded-lg border border-line bg-surface px-4 py-2.5 text-header outline-none transition-colors placeholder:text-body-text/50 focus:border-theme" />
       </label>
 
       <label class="flex flex-col gap-2 sm:col-span-2">
-        <span class="text-xs uppercase tracking-wide text-bone-dim">Correo</span>
-        <input
-          type="email"
-          name="correo"
-          required
-          placeholder="tu@correo.com"
-          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
-        />
+        <span class="text-xs uppercase tracking-wide text-body-text">Correo</span>
+        <input type="email" name="correo" required placeholder="tu@correo.com"
+          class="rounded-lg border border-line bg-surface px-4 py-2.5 text-header outline-none transition-colors placeholder:text-body-text/50 focus:border-theme" />
       </label>
 
       <label class="flex flex-col gap-2 sm:col-span-2">
-        <span class="text-xs uppercase tracking-wide text-bone-dim">Área legal</span>
-        <select
-          name="area"
-          required
-          class="border-b border-line bg-transparent py-2 text-bone outline-none transition-colors focus:border-gold [&>option]:bg-ink-2"
-        >
+        <span class="text-xs uppercase tracking-wide text-body-text">Área legal</span>
+        <select name="area" required
+          class="rounded-lg border border-line bg-surface px-4 py-2.5 text-header outline-none transition-colors focus:border-theme">
           <option value="" disabled selected>Selecciona un área</option>
           {opciones.map((o) => <option value={o}>{o}</option>)}
         </select>
       </label>
 
       <label class="flex flex-col gap-2 sm:col-span-2">
-        <span class="text-xs uppercase tracking-wide text-bone-dim">Consulta</span>
-        <textarea
-          name="mensaje"
-          required
-          rows="4"
-          placeholder="Cuéntanos brevemente tu situación..."
-          class="resize-none border-b border-line bg-transparent py-2 text-bone outline-none transition-colors placeholder:text-bone-dim/50 focus:border-gold"
-        ></textarea>
+        <span class="text-xs uppercase tracking-wide text-body-text">Consulta</span>
+        <textarea name="mensaje" required rows="4" placeholder="Cuéntanos brevemente tu situación..."
+          class="resize-none rounded-lg border border-line bg-surface px-4 py-2.5 text-header outline-none transition-colors placeholder:text-body-text/50 focus:border-theme"></textarea>
       </label>
 
       <div class="flex flex-col gap-3 pt-2 sm:col-span-2 sm:flex-row">
-        <button
-          type="submit"
-          data-action="whatsapp"
-          class="flex flex-1 items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.02]"
-        >
+        <button type="submit" data-action="whatsapp"
+          class="flex flex-1 items-center justify-center gap-2 rounded-full bg-theme px-6 py-3.5 text-sm font-medium text-white transition-transform hover:scale-[1.02]">
           <Icon name="whatsapp" class="h-4 w-4" />
           Enviar por WhatsApp
         </button>
-        <button
-          type="submit"
-          data-action="email"
-          class="flex-1 rounded-full border border-line px-6 py-3 text-sm uppercase tracking-wide text-bone transition-colors hover:border-gold hover:text-gold-soft"
-        >
+        <button type="submit" data-action="email"
+          class="flex-1 rounded-full border border-header px-6 py-3.5 text-sm font-medium text-header transition-colors hover:bg-header hover:text-cream">
           Enviar por correo
         </button>
       </div>
-      <p class="text-xs text-bone-dim/70 sm:col-span-2">
+      <p class="text-xs text-body-text/70 sm:col-span-2">
         Al enviar aceptas ser contactado sobre tu consulta. Tratamos tu
         información con confidencialidad profesional.
       </p>
@@ -180,15 +147,10 @@ const opciones = [...areas.map((a) => a.titulo), "Otro asunto"];
     if (!action) return;
     e.preventDefault();
     if (!form.reportValidity()) return;
-
     const data = new FormData(form);
     const message = buildMessage(data);
-
     if (action === "whatsapp") {
-      window.open(
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
-        "_blank",
-      );
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
     } else {
       const subject = encodeURIComponent(`Consulta legal — ${data.get("area")}`);
       window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${encodeURIComponent(message)}`;

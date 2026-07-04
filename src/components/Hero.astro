@@ -1,151 +1,102 @@
 ---
-import { Image } from "astro:assets";
-import marble from "../assets/images/marble-dark.jpg";
 import { firma, whatsappLink } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
 <section
   id="inicio"
-  class="grain relative flex h-[100svh] min-h-[640px] w-full flex-col overflow-hidden bg-ink"
+  class="relative overflow-hidden bg-cream pt-32 pb-20 md:pt-40 md:pb-28"
 >
-  <!-- Background layers -->
-  <Image
-    src={marble}
-    alt=""
-    class="ken-burns absolute inset-0 h-full w-full object-cover opacity-40"
-    widths={[640, 1280, 1920, 2400]}
-    sizes="100vw"
-    loading="eager"
-    fetchpriority="high"
-  />
-  <div class="aurora"></div>
-  <canvas id="hero-particles" class="absolute inset-0 z-[2] h-full w-full"
-  ></canvas>
+  <!-- Decorative gold glow -->
   <div
-    class="absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/50 to-ink/30"
+    class="pointer-events-none absolute -right-40 -top-40 h-96 w-96 rounded-full bg-theme/10 blur-3xl"
   >
   </div>
 
-  <!-- TODO (opcional): video propio de fondo.
-       Coloca tu mp4 en /public/hero.mp4 y descomenta:
-  <video class="absolute inset-0 z-[1] h-full w-full object-cover opacity-40"
-    autoplay loop muted playsinline preload="auto" src="/hero.mp4"></video>
-  -->
+  <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-6 md:px-8 lg:grid-cols-[1.05fr_0.95fr]">
+    <!-- Left: copy -->
+    <div>
+      <p class="reveal eyebrow mb-6" data-reveal>{firma.tagline}</p>
 
-  <!-- Content -->
-  <div
-    class="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-6 pb-16 md:px-8 md:pb-24"
-  >
-    <p
-      class="reveal mb-5 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft"
-      data-reveal
-    >
-      <span class="h-px w-10 bg-gold/60"></span>
-      {firma.tagline}
-    </p>
+      <h1
+        class="font-display text-5xl leading-[1.05] text-header sm:text-6xl md:text-7xl"
+        data-kinetic
+      >
+        <span class="kinetic-line">Defensa legal</span>
+        <span class="kinetic-line">con <span class="text-theme italic">criterio.</span></span>
+      </h1>
 
-    <h1
-      class="font-display text-[15vw] font-medium leading-[0.92] tracking-tight text-bone sm:text-[12vw] md:text-[8.5vw]"
-      data-kinetic
-    >
-      <span class="kinetic-line">Defensa legal</span>
-      <span class="kinetic-line">
-        con <span class="italic text-gold-soft">criterio.</span>
-      </span>
-    </h1>
-
-    <div
-      class="mt-9 flex flex-col gap-8 border-t border-line pt-8 lg:flex-row lg:items-end lg:justify-between"
-    >
-      <p class="reveal max-w-md text-balance text-bone-dim" data-reveal>
+      <p class="reveal mt-8 max-w-md text-lg leading-relaxed text-body-text" data-reveal>
         Asesoría y litigio en materia corporativa, notarial, laboral y de
         familia en El Salvador. Primera consulta sin costo — respondemos en
         menos de 24 horas.
       </p>
 
-      <div class="reveal flex shrink-0 flex-wrap gap-3" data-reveal>
+      <div class="reveal mt-9 flex flex-wrap gap-3" data-reveal>
         <a
           href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
+          class="inline-flex items-center gap-2 rounded-full bg-theme px-6 py-3.5 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
         >
           <Icon name="whatsapp" class="h-4 w-4" />
           Escribir por WhatsApp
         </a>
         <a
           href="#contacto"
-          class="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm text-bone transition-colors hover:border-gold/50"
+          class="inline-flex items-center gap-2 rounded-full border border-line-2 px-6 py-3.5 text-sm font-medium text-header transition-colors hover:border-theme hover:text-theme"
         >
           Enviar consulta
           <Icon name="arrow" class="h-4 w-4" />
         </a>
       </div>
+
+      <!-- Mini stats -->
+      <dl class="reveal mt-12 flex flex-wrap gap-x-10 gap-y-6 border-t border-line pt-8" data-reveal>
+        <div>
+          <dt class="font-display text-3xl text-header">15+</dt>
+          <dd class="mt-1 text-xs uppercase tracking-wide text-body-text">Años de ejercicio</dd>
+        </div>
+        <div>
+          <dt class="font-display text-3xl text-header">400+</dt>
+          <dd class="mt-1 text-xs uppercase tracking-wide text-body-text">Casos gestionados</dd>
+        </div>
+        <div>
+          <dt class="font-display text-3xl text-header">24h</dt>
+          <dd class="mt-1 text-xs uppercase tracking-wide text-body-text">Respuesta</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- Right: framed video -->
+    <div class="reveal relative" data-reveal>
+      <div class="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-xl shadow-black/10">
+        <video
+          class="h-full w-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="metadata"
+          poster=""
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 bg-gradient-to-t from-header/25 to-transparent"></div>
+      </div>
+
+      <!-- Floating badge -->
+      <div
+        class="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-xl border border-line bg-surface px-5 py-4 shadow-lg shadow-black/10"
+      >
+        <span class="flex h-11 w-11 items-center justify-center rounded-lg bg-theme/10 text-theme">
+          <Icon name="shield" class="h-6 w-6" />
+        </span>
+        <div>
+          <p class="font-display text-sm text-header">Confidencialidad</p>
+          <p class="text-xs text-body-text">profesional garantizada</p>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- Floating stat chips -->
-  <div
-    class="reveal absolute right-6 top-28 z-10 hidden flex-col items-end gap-1 md:right-8 md:flex"
-    data-reveal
-  >
-    <span class="font-display text-5xl text-bone">15<span class="text-gold">+</span></span>
-    <span class="text-xs uppercase tracking-wide text-bone-dim">Años de ejercicio</span>
-  </div>
 </section>
-
-<script>
-  // Lightweight particle field (adaptado de Veldara, con throttling + reduced-motion)
-  const canvas = document.getElementById("hero-particles") as HTMLCanvasElement | null;
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (canvas && !reduce) {
-    const ctx = canvas.getContext("2d");
-    let particles: { x: number; y: number; vx: number; vy: number; s: number; o: number }[] = [];
-    let raf = 0;
-
-    function size() {
-      const dpr = Math.min(devicePixelRatio || 1, 2);
-      canvas!.width = canvas!.offsetWidth * dpr;
-      canvas!.height = canvas!.offsetHeight * dpr;
-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(90, Math.floor((canvas!.offsetWidth * canvas!.offsetHeight) / 16000));
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas!.offsetWidth,
-        y: Math.random() * canvas!.offsetHeight,
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        s: Math.random() * 1.4 + 0.4,
-        o: Math.random() * 0.5 + 0.15,
-      }));
-    }
-
-    function tick() {
-      const w = canvas!.offsetWidth;
-      const h = canvas!.offsetHeight;
-      ctx!.clearRect(0, 0, w, h);
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = w;
-        if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h;
-        if (p.y > h) p.y = 0;
-        ctx!.beginPath();
-        ctx!.arc(p.x, p.y, p.s, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(200,161,90,${p.o})`;
-        ctx!.fill();
-      }
-      raf = requestAnimationFrame(tick);
-    }
-
-    size();
-    tick();
-    window.addEventListener("resize", () => {
-      cancelAnimationFrame(raf);
-      size();
-      tick();
-    });
-  }
-</script>

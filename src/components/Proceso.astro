@@ -3,24 +3,14 @@ import { proceso, whatsappLink } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
-<section id="proceso" class="relative bg-ink-2 py-28 md:py-36">
+<section id="proceso" class="relative bg-surface py-24 md:py-32">
   <div class="mx-auto grid max-w-7xl gap-14 px-6 md:px-8 lg:grid-cols-[0.8fr_1.2fr]">
-    <!-- Sticky heading -->
     <div class="lg:sticky lg:top-32 lg:h-fit">
-      <p
-        class="reveal mb-4 flex items-center gap-3 text-xs uppercase tracking-[0.35em] text-gold-soft"
-        data-reveal
-      >
-        <span class="h-px w-10 bg-gold/60"></span>
-        Cómo trabajamos
-      </p>
-      <h2
-        class="reveal font-display text-5xl leading-[0.95] text-bone md:text-6xl"
-        data-reveal
-      >
-        Un proceso claro, de principio a fin.
+      <p class="reveal eyebrow mb-5" data-reveal>Cómo trabajamos</p>
+      <h2 class="reveal font-display text-4xl leading-tight text-header md:text-5xl" data-reveal>
+        Un proceso claro, de principio a fin
       </h2>
-      <p class="reveal mt-6 max-w-md text-bone-dim" data-reveal>
+      <p class="reveal mt-6 max-w-md text-body-text" data-reveal>
         Sin lenguaje que confunda. Cada caso lo lleva directamente quien lo
         firma, con reportes de avance en cada etapa.
       </p>
@@ -28,7 +18,7 @@ import Icon from "./Icon.astro";
         href={whatsappLink()}
         target="_blank"
         rel="noopener noreferrer"
-        class="reveal mt-8 inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.03]"
+        class="reveal mt-8 inline-flex items-center gap-2 rounded-full bg-theme px-6 py-3.5 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
         data-reveal
       >
         Iniciar consulta
@@ -36,23 +26,22 @@ import Icon from "./Icon.astro";
       </a>
     </div>
 
-    <!-- Steps -->
     <ol class="flex flex-col">
       {
         proceso.map((step, i) => (
           <li
-            class="reveal group grid grid-cols-[auto_1fr] gap-6 border-t border-line py-9 last:border-b"
+            class="reveal group grid grid-cols-[auto_1fr] gap-6 border-t border-line py-8 last:border-b"
             data-reveal
             style={`transition-delay:${i * 80}ms`}
           >
-            <span class="font-display text-3xl text-gold/70 transition-colors group-hover:text-gold">
+            <span class="font-display text-4xl text-theme/40 transition-colors group-hover:text-theme">
               {step.n}
             </span>
             <div>
-              <h3 class="font-display text-2xl text-bone transition-transform duration-500 group-hover:translate-x-1.5">
+              <h3 class="font-display text-2xl text-header transition-transform duration-500 group-hover:translate-x-1.5">
                 {step.titulo}
               </h3>
-              <p class="mt-2 text-bone-dim">{step.texto}</p>
+              <p class="mt-2 text-body-text">{step.texto}</p>
             </div>
           </li>
         ))
