@@ -1,9 +1,12 @@
 ---
 import { areas } from "../data/site";
 import Icon from "./Icon.astro";
+
+// Duplicamos para el loop infinito
+const loop = [...areas, ...areas];
 ---
 
-<section id="areas" class="relative bg-cream py-24 md:py-32">
+<section id="areas" class="relative overflow-hidden bg-cream py-24 md:py-32">
   <div class="mx-auto max-w-7xl px-6 md:px-8">
     <div class="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
       <div>
@@ -17,17 +20,22 @@ import Icon from "./Icon.astro";
         criterio técnico y trato directo — sin intermediarios.
       </p>
     </div>
+  </div>
 
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <!-- Carrusel infinito -->
+  <div class="areas-carousel group relative">
+    <!-- fades laterales -->
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-cream to-transparent md:w-32"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-cream to-transparent md:w-32"></div>
+
+    <div class="areas-track flex w-max gap-6 px-6">
       {
-        areas.map((a, i) => (
+        loop.map((a, i) => (
           <article
-            class="reveal group flex flex-col rounded-2xl border border-line bg-surface p-8 transition-[border-color,box-shadow] duration-300 hover:border-theme/40 hover:shadow-xl hover:shadow-black/5"
-            data-reveal
-            data-tilt
-            style={`transition-delay:${(i % 3) * 90}ms`}
+            class="group/card flex w-[300px] shrink-0 flex-col rounded-2xl border border-line bg-surface p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-theme/50 hover:shadow-xl hover:shadow-black/5 sm:w-[340px]"
+            aria-hidden={i >= areas.length ? "true" : undefined}
           >
-            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-theme/10 text-theme transition-colors duration-500 group-hover:bg-theme group-hover:text-white">
+            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-theme/10 text-theme transition-colors duration-300 group-hover/card:bg-theme group-hover/card:text-white">
               <Icon name={a.icon} class="h-7 w-7" />
             </div>
 
@@ -47,4 +55,34 @@ import Icon from "./Icon.astro";
       }
     </div>
   </div>
+
+  <p class="mt-8 text-center text-xs uppercase tracking-[0.2em] text-body-text/60">
+    Pasa el cursor sobre una tarjeta para pausar
+  </p>
 </section>
+
+<style>
+  .areas-track {
+    animation: areas-scroll 44s linear infinite;
+    will-change: transform;
+  }
+  /* Pausa al hover y permite scroll manual */
+  .areas-carousel:hover .areas-track {
+    animation-play-state: paused;
+  }
+  @keyframes areas-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 0.75rem)); } /* -50% menos medio gap */
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .areas-track {
+      animation: none;
+      flex-wrap: nowrap;
+    }
+    .areas-carousel {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .areas-carousel::-webkit-scrollbar { display: none; }
+  }
+</style>
