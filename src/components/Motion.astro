@@ -92,6 +92,30 @@
     });
   }
 
+  // 4b) Barra de progreso de scroll
+  const bar = document.querySelector<HTMLElement>("[data-scroll-progress]");
+  if (bar && !reduce) {
+    let ticking = false;
+    const paint = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      const p = max > 0 ? h.scrollTop / max : 0;
+      bar.style.transform = `scaleX(${p})`;
+      ticking = false;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(paint);
+        }
+      },
+      { passive: true }
+    );
+    paint();
+  }
+
   // 5) Tilt 3D en tarjetas [data-tilt]
   if (!reduce && window.matchMedia("(pointer: fine)").matches) {
     document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {

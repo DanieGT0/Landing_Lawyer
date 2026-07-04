@@ -1,10 +1,16 @@
 ---
-import { notariado } from "../data/site";
+import { Image } from "astro:assets";
+import signing from "../assets/images/signing-document.jpg";
+import { notariado, whatsappLink } from "../data/site";
 import Icon from "./Icon.astro";
 ---
 
-<section class="relative border-y border-line bg-surface py-24 md:py-32">
-  <div class="mx-auto max-w-7xl px-6 md:px-8">
+<section class="relative overflow-hidden border-y border-line bg-surface py-24 md:py-32">
+  <!-- orbes de acento decorativos -->
+  <div class="pointer-events-none absolute -left-32 top-20 h-80 w-80 rounded-full bg-theme/10 blur-3xl"></div>
+  <div class="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-theme/10 blur-3xl"></div>
+
+  <div class="relative mx-auto max-w-7xl px-6 md:px-8">
     <div class="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
       <div>
         <p class="reveal eyebrow mb-5" data-reveal>Notaría</p>
@@ -18,19 +24,70 @@ import Icon from "./Icon.astro";
       </p>
     </div>
 
-    <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        notariado.map((item, i) => (
-          <li
-            class="reveal group flex items-center gap-3 rounded-xl border border-line bg-cream px-5 py-4 transition-colors hover:border-theme/50"
-            data-reveal
-            style={`transition-delay:${(i % 3) * 60}ms`}
-          >
-            <Icon name="seal" class="h-5 w-5 shrink-0 text-theme" />
-            <span class="text-sm font-medium text-header">{item}</span>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+      <!-- Panel imagen -->
+      <div class="reveal relative" data-reveal>
+        <div
+          class="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-xl shadow-black/10"
+          data-tilt
+        >
+          <Image
+            src={signing}
+            alt="Firma de documentos notariales ante notario"
+            class="ken-burns h-full w-full object-cover"
+            widths={[420, 720, 1000]}
+            sizes="(min-width: 1024px) 38vw, 90vw"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-header/85 via-header/20 to-transparent"></div>
+
+          <!-- Sello flotante -->
+          <div class="absolute left-6 top-6 flex items-center gap-2 rounded-full bg-surface/95 px-4 py-2 shadow-lg backdrop-blur">
+            <Icon name="seal" class="h-4 w-4 text-theme" />
+            <span class="text-xs font-semibold uppercase tracking-wide text-header">Notario autorizado · CSJ</span>
+          </div>
+
+          <!-- Texto sobre imagen -->
+          <div class="absolute inset-x-6 bottom-6">
+            <p class="font-display text-2xl leading-snug text-white">
+              Fe pública con respaldo legal
+            </p>
+            <a
+              href={whatsappLink("Hola, necesito un trámite notarial.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-4 inline-flex items-center gap-2 rounded-full bg-theme px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-[1.04]"
+            >
+              <Icon name="whatsapp" class="h-4 w-4" />
+              Consultar trámite
+            </a>
+          </div>
+        </div>
+        <div class="absolute -left-4 -top-4 h-20 w-20 rounded-tl-2xl border-l-2 border-t-2 border-theme"></div>
+      </div>
+
+      <!-- Lista de trámites -->
+      <ul class="grid content-start gap-3 sm:grid-cols-2">
+        {
+          notariado.map((item, i) => (
+            <li
+              class="reveal group relative flex items-center gap-4 overflow-hidden rounded-xl border border-line bg-cream px-5 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-theme/50 hover:shadow-md hover:shadow-black/5"
+              data-reveal
+              style={`transition-delay:${(i % 4) * 55}ms`}
+            >
+              {/* barra izquierda que crece en hover */}
+              <span class="absolute inset-y-0 left-0 w-0.5 origin-top scale-y-0 bg-theme transition-transform duration-300 group-hover:scale-y-100" />
+              <span class="font-display text-lg leading-none text-line-2 transition-colors group-hover:text-theme">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span class="text-sm font-medium leading-tight text-header">{item}</span>
+              <Icon
+                name="arrow"
+                class="ml-auto h-4 w-4 shrink-0 -translate-x-1 text-theme opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </section>
