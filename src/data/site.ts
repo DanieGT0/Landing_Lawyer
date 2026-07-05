@@ -8,9 +8,9 @@ export const firma = {
   nombreLargo: "Alonso & Vega — Abogados y Notarios",
   tagline: "Abogados y Notarios · San Salvador",
   // WhatsApp: código país (503) + número, sin '+' ni espacios
-  whatsapp: "50370000000",
+  whatsapp: "50378887684",
   email: "contacto@alonsovega.com",
-  telefono: "+503 2222 0000",
+  telefono: "+503 7888 7684",
   direccion: "Col. Escalón, San Salvador, El Salvador",
 };
 
