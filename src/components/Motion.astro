@@ -116,6 +116,35 @@
     paint();
   }
 
+  // 4d) Cursor spotlight — halo suave que sigue el mouse (con easing)
+  const spot = document.querySelector<HTMLElement>("[data-spotlight]");
+  if (spot && !reduce && window.matchMedia("(pointer: fine)").matches) {
+    let sx = -300, sy = -300, tx = -300, ty = -300, raf = 0;
+    const loop = () => {
+      sx += (tx - sx) * 0.15;
+      sy += (ty - sy) * 0.15;
+      spot.style.setProperty("--mx", `${sx}px`);
+      spot.style.setProperty("--my", `${sy}px`);
+      raf =
+        Math.abs(tx - sx) > 0.5 || Math.abs(ty - sy) > 0.5
+          ? requestAnimationFrame(loop)
+          : 0;
+    };
+    window.addEventListener(
+      "mousemove",
+      (e) => {
+        tx = e.clientX;
+        ty = e.clientY;
+        spot.style.opacity = "1";
+        if (!raf) raf = requestAnimationFrame(loop);
+      },
+      { passive: true }
+    );
+    document.addEventListener("mouseleave", () => {
+      spot.style.opacity = "0";
+    });
+  }
+
   // 4c) Botones magnéticos [data-magnetic] — se atraen al cursor
   if (!reduce && window.matchMedia("(pointer: fine)").matches) {
     document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {

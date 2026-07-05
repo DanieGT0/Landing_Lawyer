@@ -230,8 +230,27 @@ body {
   opacity: 0.05;
 }
 
+/* Cursor spotlight — halo del color de acento que sigue el mouse */
+.spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 80;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  mix-blend-mode: multiply;
+  background: radial-gradient(
+    260px circle at var(--mx, -300px) var(--my, -300px),
+    color-mix(in srgb, var(--color-theme) 20%, transparent),
+    transparent 72%
+  );
+}
+[data-theme="midnight"] .spotlight,
+[data-theme="onyx"] .spotlight { mix-blend-mode: screen; }
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-progress { display: none; }
+  .spotlight { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

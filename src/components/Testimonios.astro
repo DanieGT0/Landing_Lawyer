@@ -1,0 +1,81 @@
+---
+import { testimonios } from "../data/site";
+
+// Duplicamos para el loop 3D infinito
+const loop = [...testimonios, ...testimonios];
+---
+
+<section id="testimonios" class="relative overflow-hidden bg-cream py-24 md:py-32">
+  <!-- orbe de acento -->
+  <div class="pointer-events-none absolute -right-24 top-10 h-80 w-80 rounded-full bg-theme/10 blur-3xl"></div>
+
+  <div class="mx-auto max-w-7xl px-6 md:px-8">
+    <div class="mb-14 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="reveal eyebrow mb-5" data-reveal>Testimonios</p>
+        <h2 class="reveal font-display text-4xl leading-tight text-header md:text-5xl" data-reveal>
+          Lo que dicen nuestros clientes
+        </h2>
+      </div>
+      <p class="reveal max-w-sm text-body-text" data-reveal>
+        Personas y empresas de todo El Salvador que confiaron su caso en nuestras
+        manos. Arrastra o desliza para leer más.
+      </p>
+    </div>
+  </div>
+
+  <!-- Carrusel 3D infinito -->
+  <div class="relative">
+    <div class="pointer-events-none absolute inset-y-0 left-0 z-30 w-16 bg-gradient-to-r from-cream to-transparent md:w-40"></div>
+    <div class="pointer-events-none absolute inset-y-0 right-0 z-30 w-16 bg-gradient-to-l from-cream to-transparent md:w-40"></div>
+
+    <div class="c3d select-none" data-carousel3d data-gap="26">
+      <div class="c3d-track" data-c3d-track>
+        {
+          loop.map((t, i) => (
+            <article
+              class="c3d-card group relative flex h-[380px] w-[330px] flex-col rounded-2xl border border-line bg-surface p-8 shadow-lg shadow-black/5 sm:w-[380px]"
+              aria-hidden={i >= testimonios.length ? "true" : undefined}
+            >
+              {/* comilla decorativa */}
+              <span class="font-display text-7xl leading-none text-theme/25 transition-colors duration-300 group-hover:text-theme/40">
+                &ldquo;
+              </span>
+
+              <p class="-mt-4 text-lg leading-relaxed text-header">{t.texto}</p>
+
+              <div class="mt-auto flex items-center gap-4 border-t border-line pt-6">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-theme/10 font-display text-lg text-theme">
+                  {t.autor.charAt(0)}
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-header">{t.autor}</p>
+                  <p class="text-xs text-body-text">{t.rol}</p>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <p class="mt-10 text-center text-xs uppercase tracking-[0.2em] text-body-text/60">
+    Arrastra · rueda del mouse · o deja que gire solo
+  </p>
+</section>
+
+<style>
+  .c3d {
+    position: relative;
+    width: 100%;
+    touch-action: pan-y;
+  }
+  .c3d-track {
+    display: flex;
+    gap: 26px;
+  }
+  .c3d-card {
+    flex-shrink: 0;
+  }
+</style>

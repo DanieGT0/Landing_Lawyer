@@ -150,6 +150,47 @@ export const notariado = [
   "Protocolización de documentos",
 ];
 
+// Testimonios de clientes
+// TODO: reemplazar por reseñas reales (con autorización del cliente)
+export const testimonios = [
+  {
+    texto:
+      "Constituyeron mi sociedad en tiempo récord y me explicaron cada paso sin tecnicismos. El mismo abogado me atendió de principio a fin.",
+    autor: "Roberto M.",
+    rol: "Emprendedor · San Salvador",
+  },
+  {
+    texto:
+      "Llevaron mi liquidación laboral con total transparencia. Sabía exactamente qué esperar y los honorarios fueron los acordados desde el inicio.",
+    autor: "Karla A.",
+    rol: "Ejecutiva · Santa Tecla",
+  },
+  {
+    texto:
+      "Necesitaba un poder para un trámite urgente y me lo resolvieron el mismo día por WhatsApp. Atención rápida y profesional.",
+    autor: "José L.",
+    rol: "Cliente notarial · Antiguo Cuscatlán",
+  },
+  {
+    texto:
+      "Registraron la marca de mi negocio y me guiaron ante una oposición. Ganamos el caso. Recomiendo su criterio técnico.",
+    autor: "Daniela R.",
+    rol: "Dueña de negocio · San Miguel",
+  },
+  {
+    texto:
+      "Un divorcio siempre es difícil, pero su acompañamiento fue cercano y humano. Nunca me sentí como un número más.",
+    autor: "Marcela V.",
+    rol: "Proceso de familia · San Salvador",
+  },
+  {
+    texto:
+      "Asesoraron a nuestra empresa extranjera para abrir sucursal en El Salvador. Dominan la parte registral y respondieron todo a tiempo.",
+    autor: "Andrés P.",
+    rol: "Gerente regional · Inversión extranjera",
+  },
+];
+
 // Preguntas frecuentes
 export const faqs = [
   {
@@ -193,6 +234,7 @@ export const navLinks = [
   { href: "#areas", label: "Áreas" },
   { href: "#proceso", label: "Proceso" },
   { href: "#despacho", label: "Despacho" },
+  { href: "#testimonios", label: "Testimonios" },
   { href: "#faq", label: "FAQ" },
   { href: "#contacto", label: "Contacto" },
 ];
