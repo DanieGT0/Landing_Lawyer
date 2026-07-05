@@ -34,15 +34,15 @@ const loop = [...testimonios, ...testimonios];
         {
           loop.map((t, i) => (
             <article
-              class="c3d-card group relative flex h-[380px] w-[330px] flex-col rounded-2xl border border-line bg-surface p-8 shadow-lg shadow-black/5 sm:w-[380px]"
+              class="c3d-card group relative flex h-[400px] w-[330px] flex-col overflow-hidden rounded-2xl border border-line bg-surface p-8 shadow-lg shadow-black/5 sm:w-[380px]"
               aria-hidden={i >= testimonios.length ? "true" : undefined}
             >
               {/* comilla decorativa */}
-              <span class="font-display text-7xl leading-none text-theme/25 transition-colors duration-300 group-hover:text-theme/40">
+              <span class="font-display text-6xl leading-none text-theme/25 transition-colors duration-300 group-hover:text-theme/40">
                 &ldquo;
               </span>
 
-              <p class="-mt-4 text-lg leading-relaxed text-header">{t.texto}</p>
+              <p class="-mt-2 line-clamp-5 text-lg leading-relaxed text-header">{t.texto}</p>
 
               <div class="mt-auto flex items-center gap-4 border-t border-line pt-6">
                 <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-theme/10 font-display text-lg text-theme">
