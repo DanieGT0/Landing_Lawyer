@@ -116,6 +116,23 @@
     paint();
   }
 
+  // 4c) Botones magnéticos [data-magnetic] — se atraen al cursor
+  if (!reduce && window.matchMedia("(pointer: fine)").matches) {
+    document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
+      const strength = 0.35;
+      el.style.transition = "transform 0.25s cubic-bezier(0.16,1,0.3,1)";
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const mx = e.clientX - (r.left + r.width / 2);
+        const my = e.clientY - (r.top + r.height / 2);
+        el.style.transform = `translate(${mx * strength}px, ${my * strength}px)`;
+      });
+      el.addEventListener("mouseleave", () => {
+        el.style.transform = "";
+      });
+    });
+  }
+
   // 5) Tilt 3D en tarjetas [data-tilt]
   if (!reduce && window.matchMedia("(pointer: fine)").matches) {
     document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((card) => {

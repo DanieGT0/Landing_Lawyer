@@ -6,16 +6,27 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="relative overflow-hidden bg-header pt-20 pb-10 text-cream">
-  <!-- Imagen de fondo tenue -->
+  <!-- Hairline de acento arriba -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-theme to-transparent"></div>
+  <div class="pointer-events-none absolute left-1/2 top-0 h-40 w-[36rem] max-w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-theme/25 blur-3xl"></div>
+
+  <!-- Imagen de fondo (biblioteca) — ahora visible -->
   <Image
     src={library}
     alt=""
-    class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-[0.10]"
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-[0.28]"
     widths={[800, 1600]}
     sizes="100vw"
     loading="lazy"
   />
-  <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-header via-header/90 to-header/70"></div>
+  <!-- Overlay: transparente arriba (deja ver libros) → sólido abajo (texto legible) -->
+  <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-header/40 via-header/75 to-header"></div>
+
+  <!-- Watermark tipográfico gigante -->
+  <span
+    aria-hidden="true"
+    class="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 select-none font-display text-[22vw] leading-none text-cream/[0.03] md:text-[16rem]"
+  >{firma.nombre}</span>
 
   <div class="relative mx-auto max-w-7xl px-6 md:px-8">
     <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -31,6 +42,7 @@ const year = new Date().getFullYear();
           href={whatsappLink()}
           target="_blank"
           rel="noopener noreferrer"
+          data-magnetic
           class="mt-6 inline-flex items-center gap-2 rounded-full bg-theme px-5 py-2.5 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
         >
           Consulta gratis
