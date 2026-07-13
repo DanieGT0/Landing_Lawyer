@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+import logo from "../assets/images/logo.png";
 import { firma, navLinks, whatsappLink } from "../data/site";
 ---
 
@@ -8,11 +10,12 @@ import { firma, navLinks, whatsappLink } from "../data/site";
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 md:px-8">
     <a href="#inicio" class="flex items-center gap-2.5">
-      <span
-        class="flex h-9 w-9 items-center justify-center rounded-sm bg-theme font-display text-lg text-white"
-      >
-        A
-      </span>
+      <Image
+        src={logo}
+        alt={firma.nombre}
+        class="h-10 w-auto"
+        loading="eager"
+      />
       <span class="font-display text-xl tracking-tight text-header">
         {firma.nombre}
       </span>
