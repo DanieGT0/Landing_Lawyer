@@ -18,8 +18,8 @@ export const whatsappLink = (msg = "Hola, quisiera agendar una consulta legal.")
   `https://wa.me/${firma.whatsapp}?text=${encodeURIComponent(msg)}`;
 
 export const stats = [
-  { valor: 15, sufijo: "+", label: "Años de ejercicio" },
-  { valor: 400, sufijo: "+", label: "Casos gestionados" },
+  { valor: 16, sufijo: "+", label: "Años de ejercicio" },
+  { valor: 950, sufijo: "+", label: "Casos gestionados" },
   { valor: 24, sufijo: "h", label: "Tiempo de respuesta" },
   { valor: 100, sufijo: "%", label: "Atención personalizada" },
 ];
@@ -53,16 +53,16 @@ export const areas = [
     ],
   },
   {
-    id: "laboral",
-    icon: "scale",
-    titulo: "Derecho Laboral",
+    id: "extranjeros",
+    icon: "globe",
+    titulo: "Servicios a Extranjeros",
     resumen:
-      "Asesoría patronal y defensa de trabajadores ante el Ministerio de Trabajo y los tribunales laborales.",
+      "Asesoría jurídica integral para personas extranjeras residentes o inversionistas en El Salvador: visas, residencias, negocios y trámites legales.",
     puntos: [
-      "Cálculo de liquidaciones e indemnizaciones",
-      "Despidos, renuncias y conciliaciones",
-      "Reglamentos internos de trabajo",
-      "Representación ante el MTPS y juzgados",
+      "Residencia temporal y permanente",
+      "Constitución de sociedades para inversionistas extranjeros",
+      "Permisos de trabajo y visas de negocio",
+      "Contratos, poderes y trámites notariales en español e inglés",
     ],
   },
   {
@@ -89,19 +89,6 @@ export const areas = [
       "Pensiones alimenticias",
       "Diligencias de sucesión y herencias",
       "Contratos civiles y arrendamientos",
-    ],
-  },
-  {
-    id: "compliance",
-    icon: "shield",
-    titulo: "Cumplimiento y Prevención (LPLDA)",
-    resumen:
-      "Programas de cumplimiento y prevención de lavado de dinero y activos conforme a la normativa salvadoreña.",
-    puntos: [
-      "Manuales y políticas de cumplimiento",
-      "Debida diligencia de clientes (DDC)",
-      "Capacitación a oficialías de cumplimiento",
-      "Asesoría ante la UIF y entes reguladores",
     ],
   },
 ];

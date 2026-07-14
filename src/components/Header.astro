@@ -13,7 +13,7 @@ import { firma, navLinks, whatsappLink } from "../data/site";
       <Image
         src={logo}
         alt={firma.nombre}
-        class="h-10 w-auto"
+        class="site-logo h-14 w-auto"
         loading="eager"
       />
       <span class="font-display text-xl tracking-tight text-header">
@@ -44,6 +44,16 @@ import { firma, navLinks, whatsappLink } from "../data/site";
     </a>
   </div>
 </header>
+
+<style>
+  .site-logo {
+    transition: filter 0.3s;
+  }
+  :global([data-theme="midnight"]) .site-logo,
+  :global([data-theme="onyx"]) .site-logo {
+    filter: brightness(0) invert(1);
+  }
+</style>
 
 <script>
   const header = document.getElementById("site-header");
