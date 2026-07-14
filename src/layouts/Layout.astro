@@ -1,6 +1,8 @@
 ---
+import { getImage } from "astro:assets";
 import "../styles/global.css";
 import { firma } from "../data/site";
+import ogSource from "../assets/images/El Salvador.jpeg";
 
 interface Props {
   title?: string;
@@ -9,8 +11,32 @@ interface Props {
 
 const {
   title = `${firma.nombreLargo} — El Salvador`,
-  description = "Asesoría y litigio legal en El Salvador: derecho corporativo, notarial, laboral y de familia. Consulta gratis por WhatsApp o correo, respuesta en 24 horas.",
+  description = "Bufete de abogados y notarios en San Salvador: derecho corporativo, servicios notariales, propiedad intelectual, trámites para extranjeros, derecho de familia y constitución de sociedades SAS. Consulta jurídica gratis por WhatsApp, respuesta en 24 horas.",
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = await getImage({ src: ogSource, width: 1200, height: 630, fit: "cover" });
+const ogImageURL = new URL(ogImage.src, Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  name: firma.nombre,
+  alternateName: firma.nombreLargo,
+  description,
+  image: ogImageURL.toString(),
+  url: Astro.site?.toString(),
+  telephone: firma.telefono,
+  email: firma.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: firma.direccion,
+    addressLocality: "San Salvador",
+    addressCountry: "SV",
+  },
+  areaServed: "El Salvador",
+  priceRange: "$$",
+};
 ---
 
 <!doctype html>
@@ -21,10 +47,19 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="es_SV" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
     <meta name="theme-color" content="#f9f7f3" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <script is:inline>
       // Aplica el tema antes del primer paint (sin flash).
       // Si el cliente ya eligió manualmente (navy/midnight) se respeta;
