@@ -34,14 +34,47 @@ import { firma, navLinks, whatsappLink } from "../data/site";
       }
     </nav>
 
-    <a
-      href={whatsappLink()}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="hidden rounded-full bg-header px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-theme sm:inline-block"
-    >
-      Consulta gratis
-    </a>
+    <div class="flex items-center gap-3">
+      <div
+        id="theme-bar"
+        class="flex items-center gap-0.5 rounded-full border border-line bg-surface p-1 shadow-sm"
+        role="group"
+        aria-label="Modo de color"
+      >
+        <button
+          type="button"
+          id="theme-btn-navy"
+          data-theme-id="navy"
+          aria-label="Modo claro"
+          class="theme-bar-btn flex h-8 w-8 items-center justify-center rounded-full text-header/70 transition-colors"
+        >
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4.5" />
+            <path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          id="theme-btn-midnight"
+          data-theme-id="midnight"
+          aria-label="Modo oscuro"
+          class="theme-bar-btn flex h-8 w-8 items-center justify-center rounded-full text-header/70 transition-colors"
+        >
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" />
+          </svg>
+        </button>
+      </div>
+
+      <a
+        href={whatsappLink()}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hidden rounded-full bg-header px-5 py-2.5 text-sm font-medium text-cream transition-colors hover:bg-theme sm:inline-block"
+      >
+        Consulta gratis
+      </a>
+    </div>
   </div>
 </header>
 
@@ -52,6 +85,10 @@ import { firma, navLinks, whatsappLink } from "../data/site";
   :global([data-theme="midnight"]) .site-logo,
   :global([data-theme="onyx"]) .site-logo {
     filter: brightness(0) invert(1);
+  }
+  .theme-bar-btn[aria-pressed="true"] {
+    background: var(--color-theme);
+    color: #fff;
   }
 </style>
 
@@ -68,4 +105,32 @@ import { firma, navLinks, whatsappLink } from "../data/site";
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
   }
+
+  const KEY = "theme";
+  const html = document.documentElement;
+  const themeButtons = document.querySelectorAll<HTMLButtonElement>(".theme-bar-btn");
+
+  function markActive(id: string) {
+    themeButtons.forEach((b) => {
+      b.setAttribute("aria-pressed", String(b.dataset.themeId === id));
+    });
+  }
+
+  function currentTheme(): string {
+    return (
+      html.dataset.theme ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "midnight" : "navy")
+    );
+  }
+
+  markActive(currentTheme());
+
+  themeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = btn.dataset.themeId || "navy";
+      html.dataset.theme = id;
+      localStorage.setItem(KEY, id);
+      markActive(id);
+    });
+  });
 </script>

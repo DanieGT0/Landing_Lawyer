@@ -26,10 +26,15 @@ const {
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#f9f7f3" />
     <script is:inline>
-      // Aplica el tema guardado antes del primer paint (sin flash)
+      // Aplica el tema antes del primer paint (sin flash).
+      // Si el cliente ya eligió manualmente (navy/midnight) se respeta;
+      // si no, se sigue la preferencia del sistema (claro = navy, oscuro = midnight).
       try {
         var t = localStorage.getItem("theme");
-        if (t) document.documentElement.dataset.theme = t;
+        if (t !== "navy" && t !== "midnight") {
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "midnight" : "navy";
+        }
+        document.documentElement.dataset.theme = t;
       } catch (e) {}
     </script>
     <title>{title}</title>
