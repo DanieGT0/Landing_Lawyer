@@ -16,6 +16,10 @@
   --color-theme-deep: #8a6a3e;
   --color-line: #e6e0d6;
   --color-line-2: #bdbdbd;
+
+  /* Overlay fijo (no cambia con el tema) para fotos con texto encima */
+  --color-navy-overlay: #0f2a4a;
+  --color-navy-overlay-accent: #e2b770;
 }
 
 html {
