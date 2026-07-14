@@ -91,6 +91,19 @@ export const areas = [
       "Contratos civiles y arrendamientos",
     ],
   },
+  {
+    id: "sas",
+    icon: "bolt",
+    titulo: "Constitución de Sociedades SAS",
+    resumen:
+      "Creamos tu Sociedad por Acciones Simplificada (S.A.S.) en el Registro de Comercio (CNR), de forma rápida y 100% legal, con inscripción sin costo mientras dure la prórroga vigente.",
+    puntos: [
+      "Constitución unipersonal, capital desde $1",
+      "Sin necesidad de escritura pública",
+      "Inscripción gratuita en el Registro de Comercio (CNR)",
+      "Responsabilidad limitada y personalidad jurídica propia",
+    ],
+  },
 ];
 
 // Cómo trabajamos — proceso
