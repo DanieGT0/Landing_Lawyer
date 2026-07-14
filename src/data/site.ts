@@ -9,9 +9,9 @@ export const firma = {
   tagline: "Abogados y Notarios · San Salvador",
   // WhatsApp: código país (503) + número, sin '+' ni espacios
   whatsapp: "50378887684",
-  email: "contacto@alonsovega.com",
+  email: "infriverayasociados@gmail.com",
   telefono: "+503 7888 7684",
-  direccion: "Col. Escalón, San Salvador, El Salvador",
+  direccion: "Final 67 Av Sur, Col. Roma, Edif. B, Apart. 22-B, San Salvador Centro. Frente a Centro de Rehabilitación del ISSS",
 };
 
 export const whatsappLink = (msg = "Hola, quisiera agendar una consulta legal.") =>
