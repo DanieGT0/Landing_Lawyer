@@ -6,7 +6,7 @@
 export const firma = {
   nombre: "Rivera & Asociados",
   nombreLargo: "Rivera & Asociados — Abogados y Notarios",
-  tagline: "Abogados y Notarios · San Salvador",
+  tagline: "Rivera & Asociados",
   // WhatsApp: código país (503) + número, sin '+' ni espacios
   whatsapp: "50378887684",
   email: "infriverayasociados@gmail.com",
